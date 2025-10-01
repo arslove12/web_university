@@ -1,0 +1,127 @@
+/* darkmode.css */
+.dark {
+  /* General background and text colors */
+  --color-bg-primary: #181818; /* YouTube-like dark gray for body */
+  --color-bg-secondary: #282828; /* Slightly lighter dark gray for cards/sections */
+  --color-text-primary: #e0e0e0; /* Soft white primary text for better readability */
+  --color-text-secondary: #c0c0c0; /* Brighter secondary text */
+  --color-border: #2d3748; /* Even darker border for dark mode */
+  --color-link: #90cdf4; /* Light blue for links in dark mode */
+
+  /* Apply to body and main elements */
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.dark a {
+  color: #ffffff; /* Pure white for links in dark mode */
+  font-weight: 600; /* Make text bolder */
+}
+
+.dark .hero-bg {
+  background: #3e2723; /* Dark brown for header */
+  border-color: var(--color-border);
+}
+
+
+.dark .text-gray-700 { /* Added for brighter text-gray-700 in dark mode */
+  color: var(--color-text-primary);
+}
+
+.dark .text-gray-800 {
+  color: var(--color-text-primary);
+}
+
+.dark .text-gray-600 {
+  color: var(--color-text-primary); /* Changed to primary for brighter text */
+}
+
+.dark .bg-gray-50 {
+  background-color: var(--color-bg-primary);
+}
+
+.dark .bg-white {
+  background-color: var(--color-bg-secondary);
+}
+
+.dark .card-shadow {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3); /* Darker shadow for dark mode */
+}
+
+.dark .timeline-line {
+  background: linear-gradient(#8b5e3e, #4a2c1a); /* Darker gradient for timeline */
+}
+
+.dark .timeline-item-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.dark .timeline-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* Ensure timeline dots are visible and styled in dark mode */
+.dark .timeline-dot {
+  background-color: #d69e2e; /* Amber color for dots */
+  border: 2px solid #fbd38d; /* Lighter amber border */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Specific adjustments for elements that use direct Tailwind colors */
+.dark .border-b {
+  border-color: var(--color-border);
+}
+
+.dark .text-amber-700 {
+  color: #fbd38d; /* Lighter amber for dark mode */
+}
+
+.dark .bg-amber-600 {
+  background-color: #3e2723; /* Dark brown, matching header in dark mode */
+}
+
+.dark .hover\:opacity-95:hover {
+  opacity: 0.85; /* Adjust hover opacity for dark mode */
+}
+
+.dark .text-gray-500 {
+  color: var(--color-text-secondary);
+}
+
+/* Adjust image filter for dark mode if needed, though usually not necessary */
+/* .dark img { filter: brightness(0.8) contrast(1.2); } */
+
+/* New rules for text-black and bg-amber-700 in dark mode */
+.dark .text-black {
+  color: var(--color-text-primary); /* Make black text white in dark mode */
+}
+
+.dark .bg-amber-700 {
+  background-color: #3e2723; /* Match header color */
+}
+
+.dark .bg-amber-700:hover {
+  background-color: #5a3e37; /* Slightly lighter for hover effect */
+}
+
+.dark .bg-gray-100 {
+  background-color: #000000; /* Make footer black in dark mode */
+}
+
+.dark .border-amber-600 {
+  border-color: #3e2723; /* Match border to background in dark mode */
+}
+
+/* Image hover effect for gallery items */
+.card-shadow:hover {
+  transform: translateY(-5px) scale(1.02); /* Lift and slightly enlarge */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+  transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
+}
+
+/* Style for moon icon to have a border */
+#moon-icon {
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1)); /* Add a black "border" */
+}
