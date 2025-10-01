@@ -31,26 +31,74 @@
     .border-b {
       border-color: #a0a0a0; /* Darker border for light mode */
     }
+    #mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    #mobile-menu.open {
+        transform: translateX(0);
+    }
+    .scroll-animate {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .scroll-animate.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .timeline-item {
+        opacity: 0;
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .timeline-item.left {
+        transform: translateX(-30px);
+    }
+    .timeline-item.right {
+        transform: translateX(30px);
+    }
+    .timeline-item.is-visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    .timeline-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .timeline-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .hero-button {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+    }
+    .dark .hero-button {
+        background-color: #3e2723; /* Dark brown from darkmode.css */
+        color: white;
+        border-color: #3e2723;
+    }
   </style>
   <link rel="stylesheet" href="darkmode.css">
 </head>
 <body class="antialiased font-sans text-gray-700 bg-gray-50 transition-colors duration-300">
   <!-- Header -->
   <header class="hero-bg border-b">
-    <div class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
-      <div class="flex items-center space-x-4">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="thuoclaovietnam.html" class="flex items-center space-x-4">
         <div class="w-12 h-12 rounded-full  flex items-center justify-center text-white font-bold">
-          <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAflBMVEXaJR3//wDbMCnZEh7qmhTXAB7ZHR3ZGx3++APYCx721AzspBPbLhz99QTpkxX88gX54Qn32QvmgBflehfzxw7xvRDvtBHiZRnjbBj55AnywQ/wuBDhXhn77QbeRxvrnhTcOhzojBbnhhbkdBjgWBrurxHfThr0zA3fUxrcNxyPL/0XAAAEB0lEQVR4nO3d6XaiQBAFYHva6hYXXDJZjHvc4vu/4CgIsjQK6Bzt6vv9TnKg5LI0VbHRAAAAAAAAAAAAAAAAAAAAAAAAAICL7rM34PXQX3r2JrwatRRL9eyNeDGyKZry2RvxYmggBghPiuoKIboIT9IxOgLhSTtGRyA8GeLk2RvxUqQf1MRHeC5oGNRkiPBcKBHChScmV+earBCeCLXPNWkjPBEtIjhOzuRPXJMfFCVE+7gme4Qn5IkL79kb8xr0KFGTkX725ryERHQQnjMSSajJkX5L1eQN4TktTqdqgqXqRjY6CM+RXmdqskZ46DtTk28cKNnoIDwN/ZWryZfr4fHeczV5d/3+nlq5mrQcD4/+zJVEiE+3w+NNDDWZuB0eQ3RcD4+eGkoixNTl8Hgfxpp8uBwe6hlr0nM4PGpjLIkQG4Yvv5QshbYFNdlSuT9g0XlHrTvNMvx+QU36fqnf79j0DC3N585Hm1j1NohM96eP9mnZqVjr9u2duktbW3WUBMj/ryXxLTtIQt686BR6v/7c0ts6RfnFkcd4J3tvYCi7AP0YaytzE5HdwcMrMujad3JNUdR5cEk6FucmQhvTGkldrY3VuYlob397X0vaexbdzV9FP7f3tpQVi4Mk5C1nD6jIbGnpTYmZovufCj8YnFzTKP/Cr5ovRrmJSDW8oyLDhuU3JQWoWbskTXa5idCu3lNhb8cwNxGd6zYp45u43JSY0eh2DTJGjA+SkOyOK1VkfOB5ck1RhW8wTLZsT65pNDW//svrTdnnJpJpiS3mULOsd7saZ6wecK7R5a89zoxpUPn1FGfGNPItscUcqUlmEOM6R8Y0Sl91Thy58lSJjiPhyQ1iXGdTi0ltFR+NnRjTqBYdJ8JjGMS4zoExDcMgxnUOjGlUjY4D4TEOYgRM0wgB9mMaxkGMo/6Oitqa2I9pGAcxwmVoVXCV5j6mocyDGG/hbpP5SWjKe/nROIgxjhuPzG1NzMc0TIMYycYjY1sT7zENwyBGK7MMTdP8GYfjmEbMy73G2OdmK7TMLcNtOYeHspdbY+MRrTI/1WccHrVL7+usoBs619a04xseL30CnRS+41OUvrXr8A0PpT7+q93Q6bamGdvwqHliN281HslGsq1pzjU8MhGdxc1344oWifBwbS6guMui91smDPQb3+GNmYZHLaM9/FuyG1pfXnsw/UIAGWWhQuNR3Na04Bmec3SqNR7Jw5hxeNQh2LmqjUdRW9OBY3iCf+tfZ/41nMtl+YUAp3/r39Z11laDuVyOXwhw+kaM2vOvp7lcht+mIRetO+ZfvXmL4ZVH+t49H7TyfIavNO79mBmWBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7PYHsv4Bfwktl+d1EYQAAAAASUVORK5CYII></div>
-        <div>
-
-          <h1 class="text-2xl font-extrabold">Thuốc Lào Việt Nam</h1>
-          <p class="text-sm text-gray-600">Lịch sử — Tập quán — Nghệ thuật</p>
+          <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAflBMVEXaJR3//wDbMCnZEh7qmhTXAB7ZHR3ZGx3++APYCx721AzspBPbLhz99QTpkxX88gX54Qn32QvmgBflehfzxw7xvRDvtBHiZRnjbBj55AnywQ/wuBDhXhn77QbeRxvrnhTcOhzojBbnhhbkdBjgWBrurxHfThr0zA3fUxrcNxyPL/0XAAAEB0lEQVR4nO3d6XaiQBAFYHva6hYXXDJZjHvc4vu/4CgIsjQK6Bzt6vv9TnKg5LI0VbHRAAAAAAAAAAAAAAAAAAAAAAAAAICL7rM34PXQX3r2JrwatRRL9eyNeDGyKZry2RvxYmggBghPiuoKIboIT9IxOgLhSTtGRyA8GeLk2RvxUqQf1MRHeC5oGNRkiPBcKBHChScmV+earBCeCLXPNWkjPBEtIjhOzuRPXJMfFCVE+7gme4Qn5IkL79kb8xr0KFGTkX725ryERHQQnjMSSajJkX5L1eQN4TktTqdqgqXqRjY6CM+RXmdqskZ46DtTk28cKNnoIDwN/ZWryZfr4fHeczV5d/3+nlq5mrQcD4/+zJVEiE+3w+NNDDWZuB0eQ3RcD4+eGkoixNTl8Hgfxpp8uBwe6hlr0nM4PGpjLIkQG4Yvv5QshbYFNdlSuT9g0XlHrTvNMvx+QU36fqnf79j0DC3N585Hm1j1NohM96eP9mnZqVjr9u2duktbW3WUBMj/ryXxLTtIQt686BR6v/7c0ts6RfnFkcd4J3tvYCi7AP0YaytzE5HdwcMrMujad3JNUdR5cEk6FucmQhvTGkldrY3VuYlob397X0vaexbdzV9FP7f3tpQVi4Mk5C1nD6jIbGnpTYmZovufCj8YnFzTKP/Cr5ovRrmJSDW8oyLDhuU3JQWoWbskTXa5idCu3lNhb8cwNxGd6zYp45u43JSY0eh2DTJGjA+SkOyOK1VkfOB5ck1RhW8wTLZsT65pNDW//svrTdnnJpJpiS3mULOsd7saZ6wecK7R5a89zoxpUPn1FGfGNPItscUcqUlmEOM6R8Y0Sl91Thy58lSJjiPhyQ1iXGdTi0ltFR+NnRjTqBYdJ8JjGMS4zoExDcMgxnUOjGlUjY4D4TEOYgRM0wgB9mMaxkGMo/6Oitqa2I9pGAcxwmVoVXCV5j6mocyDGG/hbpP5SWjKe/nROIgxjhuPzG1NzMc0TIMYycYjY1sT7zENwyBGK7MMTdP8GYfjmEbMy73G2OdmK7TMLcNtOYeHspdbY+MRrTI/1WccHrVL7+usoBs619a04xseL30CnRS+41OUvrXr8A0PpT7+q93Q6bamGdvwqHliN281HslGsq1pzjU8MhGdxc1344oWifBwbS6guMui91smDPQb3+GNmYZHLaM9/FuyG1pfXnsw/UIAGWWhQuNR3Na04Bmec3SqNR7Jw5hxeNQh2LmqjUdRW9OBY3iCf+tfZ/41nMtl+YUAp3/r39Z11laDuVyOXwhw+kaM2vOvp7lcht+mIRetO+ZfvXmL4ZVH+t49H7TyfIavNO79mBmWBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7PYHsv4Bfwktl+d1EYQAAAAASUVORK5CYII=></div>
+        <div class="flex-grow">
+          <h1 class="text-xl md:text-2xl font-extrabold">Thuốc Lào Việt Nam</h1>
+          <p class="text-xs md:text-sm text-gray-600">Lịch sử — Tập quán — Nghệ thuật</p>
         </div>
-      </div>
-      <div class="flex items-center space-x-4">
-        <nav class="space-x-4 text-sm">
-         
-                 
+      </a>
+      <div class="flex items-center space-x-2">
+        <nav class="hidden md:flex space-x-4 text-sm">
+            <a href="#" class="hover:underline">Trang chủ</a>
+            <a href="lich_su_chi_tiet.html" class="hover:underline">Lịch sử</a>
+            <a href="#van-hoa" class="hover:underline">Văn hoá</a>
+            <a href="#gallery" class="hover:underline">Thư viện</a>
         </nav>
           <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 flex items-center justify-center">
             <!-- Sun Icon -->
@@ -73,84 +121,126 @@
               </path>
             </svg>
           </button>
+          <!-- Mobile Menu Buttons -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="p-2 rounded-md text-gray-800 hover:bg-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+            <button id="mobile-menu-close-button" class="hidden p-2 rounded-md text-gray-800 hover:bg-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative py-12">
-    <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="w-full h-[66.66vh] object-cover filter blur-sm">
-    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div class="max-w-2xl text-white text-center px-6">
-        <h2 class="text-4xl font-bold mb-4">Lịch sử và văn hóa của thuốc lào    một phần đời sống nông thôn Việt</h2>
-        <p class="text-lg mb-6">Trang này cung cấp tóm tắt lịch sử, tập tục, các dụng cụ truyền thống, và ảnh minh họa về thuốc lào — loại thuốc điển hình tại nhiều vùng quê Việt Nam. Dùng trang để tham khảo, giáo dục hoặc làm tài liệu trưng bày.</p>
-        <a href="#dong-thoi" id="timeline-button" class="inline-block bg-amber-600 text-white border border-amber-600 px-5 py-3 rounded-lg shadow hover:bg-amber-700 transition-colors duration-200">Xem dòng thời gian</a>
-      </div>
+  <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-64 bg-white z-50 p-6 space-y-4">
+        <a href="#" class="block hover:underline">Trang chủ</a>
+        <a href="lich_su_chi_tiet.html" class="block hover:underline">Lịch sử văn hóa thuốc lào</a>
+        <a href="#" class="block hover:underline">Bản đồ vùng</a>
+        <a href="#" class="block hover:underline">Đánh giá</a>
     </div>
-  </section>
+
+
+  <!-- Hero Section -->
+<section>
+    <!-- Desktop Image (Overlay with fixed height) -->
+    <div class="hidden md:block relative h-96">
+        <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="absolute inset-0 w-full h-full object-cover filter blur-sm">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="max-w-2xl text-white text-center px-6">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Lịch sử và văn hóa của thuốc lào</h2>
+                <p class="text-lg">Một phần đời sống nông thôn Việt</p>
+                 <a href="#dong-thoi" class="hero-button mt-6 inline-block py-3 px-6 rounded-lg shadow-lg hover:bg-gray-200 dark:hover:bg-amber-700 transition-colors duration-300">Xem dòng thời gian</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Image (Stacked) -->
+    <div class="md:hidden">
+        <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="w-full h-auto object-cover">
+        <div class="bg-white p-6 text-center">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Lịch sử và văn hóa của thuốc lào</h2>
+            <p class="text-base mb-6 text-gray-700">Một phần đời sống nông thôn Việt</p>
+            <a href="#dong-thoi" class="hero-button inline-block py-3 px-6 rounded-lg shadow-lg hover:bg-gray-200 dark:hover:bg-amber-700 transition-colors duration-300">Xem dòng thời gian</a>
+        </div>
+    </div>
+</section>
 
   <!-- Intro -->
-  <section id="gioi-thieu" class="max-w-6xl mx-auto px-6 py-6">
+  <section id="gioi-thieu" class="max-w-6xl mx-auto px-6 py-6 scroll-animate">
     <div class="bg-white rounded-xl p-6 card-shadow">
       <h3 class="text-xl font-semibold mb-3">Giới thiệu ngắn</h3>
       <p class="text-gray-700 leading-relaxed">"Thuốc lào" là tên gọi phổ biến cho lá thuốc băm dùng với điếu cày (ống nước) trong nhiều vùng nông thôn Việt Nam. Việc dùng thuốc lào gắn liền với nghi thức thân mật, tụ họp, tiếp khách, và thường xuất hiện trong câu chuyện, ca dao, tục ngữ. Dụng cụ, lời ăn tiếng nói và phong cách sử dụng đều có tính địa phương rõ nét.</p>
-      <a href="lich_su_chi_tiet.html" class="inline-block bg-amber-600 text-black border border-amber-600 px-5 py-3 rounded-lg shadow hover:bg-amber-700 transition-colors duration-200 mt-4 transform hover:scale-105">Xem chi tiết Lịch sử & Bản đồ vùng</a>
+      <a href="lich_su_chi_tiet.html" class="hero-button inline-block px-5 py-3 rounded-lg shadow hover:bg-gray-200 dark:hover:bg-amber-700 transition-colors duration-200 mt-4 transform hover:scale-105">Xem chi tiết Lịch sử &amp; Bản đồ vùng</a>
     </div>
   </section>
 
-  <!-- Timeline -->
+  <!-- Tree Timeline -->
   <section id="dong-thoi" class="max-w-6xl mx-auto px-6 py-8">
-    <h3 class="text-2xl font-bold mb-6">Dòng thời gian tóm tắt</h3>
+    <h3 class="text-3xl font-bold mb-12 text-center">Dòng thời gian tóm tắt</h3>
     <div class="relative">
-      <div class="absolute left-1/2 transform -translate-x-1/2 h-full flex justify-center">
-        <div class="timeline-line" style="width: 4px;"></div>
-      </div>
-
-      <div class="space-y-8"> <!-- Reverted to space-y-8 -->
-        <!-- Item 1 -->
-        <div class="md:flex md:items-start md:justify-between"> <!-- Reverted to md:items-start md:justify-between -->
-          <div class="md:w-5/12 md:text-right pr-6"> <!-- Reverted to md:w-5/12 md:text-right pr-6 -->
-            <div class="inline-block text-sm text-amber-700 font-semibold">Trước thế kỷ 20</div>
-            <h4 class="text-lg font-semibold">Nguồn gốc và truyền bá</h4>
-            <p class="text-gray-600">Việc trồng thuốc lá và sử dụng ống nước có thể xuất hiện sớm; nhiều tư liệu dân gian cho biết thói quen này phổ biến ở đồng bằng Bắc Bộ và miền Trung.</p>
-          </div>
-          <div class="md:w-2/12 flex justify-center"> <!-- Reverted to md:w-2/12 flex justify-center -->
-            <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">1</div>
-          </div>
-          <div class="md:w-5/12 pl-6 bg-white rounded-xl p-4 card-shadow"> <!-- Reverted to md:w-5/12 pl-6 bg-white rounded-xl p-4 card-shadow -->
-            <p class="text-sm text-gray-700">Thuốc được chế biến thủ công, thường là lá băm ẩm, dùng kèm điếu cày làm từ tre hoặc gốm.</p>
-          </div>
+        <!-- The timeline line -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full">
+            <div class="timeline-line" style="width: 4px;"></div>
         </div>
-
-        <!-- Item 2 -->
-        <div class="md:flex md:items-start md:justify-between"> <!-- Reverted to md:items-start md:justify-between -->
-          <div class="md:w-5/12 pr-6 bg-white rounded-xl p-4 card-shadow"> <!-- Reverted to md:w-5/12 pr-6 bg-white rounded-xl p-4 card-shadow -->
-            <p class="text-sm text-gray-700">Giai đoạn thực dân, thương mại làm thay đổi các đường vận chuyển và loại dụng cụ; hình ảnh thuốc lào xuất hiện trong nhiều ký ức hành trình.</p>
-          </div>
-          <div class="md:w-2/12 flex justify-center"> <!-- Reverted to md:w-2/12 flex justify-center -->
-            <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">2</div>
-          </div>
-          <div class="md:w-5/12 md:text-left pl-6"> <!-- Reverted to md:w-5/12 md:text-left pl-6 -->
-            <div class="inline-block text-sm text-amber-700 font-semibold">Thế kỷ 20</div>
-            <h4 class="text-lg font-semibold">Phổ biến và thay đổi</h4>
-          </div>
+        <div class="space-y-16">
+            <!-- Item 1 -->
+            <div class="timeline-item left flex items-center">
+                <div class="flex-1 text-right pr-8">
+                    <div class="timeline-card bg-white rounded-xl p-6 card-shadow">
+                        <div class="text-sm text-amber-700 font-semibold">Trước thế kỷ 20</div>
+                        <h4 class="text-xl font-bold my-2">Nguồn gốc và truyền bá</h4>
+                        <p class="text-gray-600">Việc trồng thuốc lá và sử dụng ống nước có thể xuất hiện sớm. Nhiều tư liệu dân gian cho biết thói quen này phổ biến ở đồng bằng Bắc Bộ và miền Trung.</p>
+                    </div>
+                </div>
+                <div class="w-auto px-4 z-10">
+                    <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">1</div>
+                </div>
+                <div class="flex-1 pl-8">
+                    <div class="timeline-card bg-white rounded-xl p-4 card-shadow">
+                        <p class="text-sm text-gray-700">Thuốc được chế biến thủ công, thường là lá băm ẩm, dùng kèm điếu cày làm từ tre hoặc gốm.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="timeline-item right flex items-center flex-row-reverse">
+                <div class="flex-1 text-left pl-8">
+                   <div class="timeline-card bg-white rounded-xl p-6 card-shadow">
+                        <div class="text-sm text-amber-700 font-semibold">Thế kỷ 20</div>
+                        <h4 class="text-xl font-bold my-2">Phổ biến và thay đổi</h4>
+                        <p class="text-gray-600">Giai đoạn thực dân, thương mại làm thay đổi các đường vận chuyển và loại dụng cụ. Hình ảnh thuốc lào xuất hiện trong nhiều ký ức hành trình.</p>
+                    </div>
+                </div>
+                <div class="w-auto px-4 z-10">
+                    <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">2</div>
+                </div>
+                <div class="flex-1 pr-8">
+                    <div class="timeline-card bg-white rounded-xl p-4 card-shadow">
+                        <p class="text-sm text-gray-700">Thuốc lào, với vai trò là một sản phẩm thương mại quan trọng, đã trở thành một hình ảnh quen thuộc trong ký ức của những người tham gia vào các tuyến hành trình thương mại này, từ người trồng trọt, người buôn bán đến người vận chuyển. </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="timeline-item left flex items-center">
+                <div class="flex-1 text-right pr-8">
+                    <div class="timeline-card bg-white rounded-xl p-6 card-shadow">
+                        <div class="text-sm text-amber-700 font-semibold">Hậu chiến & Hiện đại</div>
+                        <h4 class="text-xl font-bold my-2">Vị trí trong đời sống đương đại</h4>
+                        <p class="text-gray-600">Dù giảm dần ở đô thị, thuốc lào vẫn giữ vai trò mạnh mẽ ở vùng nông thôn như dấu ấn văn hóa và ký ức.</p>
+                    </div>
+                </div>
+                <div class="w-auto px-4 z-10">
+                    <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">3</div>
+                </div>
+                <div class="flex-1 pl-8">
+                     <div class="timeline-card bg-white rounded-xl p-4 card-shadow">
+                        <p class="text-sm text-gray-700">Các nghiên cứu dân tộc học, ảnh hưởng truyền thông và luật y tế đã làm thay đổi cách nhìn và thói quen sử dụng.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Item 3 -->
-        <div class="md:flex md:items-start md:justify-between"> <!-- Reverted to md:flex md:items-start md:justify-between -->
-          <div class="md:w-5/12 md:text-right pr-6"> <!-- Reverted to md:w-5/12 md:text-right pr-6 -->
-            <div class="inline-block text-sm text-amber-700 font-semibold">Hậu chiến & Hiện đại</div>
-            <h4 class="text-lg font-semibold">Vị trí trong đời sống đương đại</h4>
-            <p class="text-gray-600">Dù giảm dần ở đô thị, thuốc lào vẫn giữ vai trò mạnh mẽ ở vùng nông thôn như dấu ấn văn hóa và ký ức.</p>
-          </div>
-          <div class="md:w-2/12 flex justify-center"> <!-- Reverted to md:w-2/12 flex justify-center -->
-            <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">3</div>
-          </div>
-          <div class="md:w-5/12 pl-6 bg-white rounded-xl p-4 card-shadow"> <!-- Reverted to md:w-5/12 pl-6 bg-white rounded-xl p-4 card-shadow -->
-            <p class="text-sm text-gray-700">Các nghiên cứu dân tộc học, ảnh hưởng truyền thông và luật y tế đã làm thay đổi cách nhìn và thói quen sử dụng.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -158,15 +248,15 @@
   <section id="van-hoa" class="max-w-6xl mx-auto px-6 py-8">
     <h3 class="text-2xl font-bold mb-4">Văn hoá & Tập quán</h3>
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-white rounded-xl p-5 card-shadow">
+      <div class="bg-white rounded-xl p-5 card-shadow scroll-animate">
         <h4 class="font-semibold mb-2">Điếu cày & Dụng cụ</h4>
         <p class="text-gray-600 text-sm">Điếu cày thường làm bằng tre, đồng hoặc gốm; ống nước giữ vai trò trung tâm khi tiếp khách. Mỗi vùng có kiểu dáng và tên gọi khác nhau.</p>
       </div>
-      <div class="bg-white rounded-xl p-5 card-shadow">
+      <div class="bg-white rounded-xl p-5 card-shadow scroll-animate" style="transition-delay: 0.2s;">
         <h4 class="font-semibold mb-2">Nghi thức tiếp khách</h4>
         <p class="text-gray-600 text-sm">Mời điếu, rót nước, hút và chuyển tay là các nghi thức biểu thị thân mật và tôn trọng trong cộng đồng.</p>
       </div>
-      <div class="bg-white rounded-xl p-5 card-shadow">
+      <div class="bg-white rounded-xl p-5 card-shadow scroll-animate" style="transition-delay: 0.4s;">
         <h4 class="font-semibold mb-2">Ngôn ngữ & Ca dao</h4>
         <p class="text-gray-600 text-sm">Thuốc lào xuất hiện trong ca dao, tục ngữ, truyện kể — là một chất xúc tác cho câu chuyện và ký ức chung.</p>
       </div>
@@ -239,8 +329,11 @@
   const html = document.documentElement;
   const sunIcon = document.getElementById("sun-icon");
   const moonIcon = document.getElementById("moon-icon");
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+  const mobileMenu = document.getElementById('mobile-menu');
 
-  // Hàm cập nhật icon theo theme
+  // Dark mode logic
   function updateIcons() {
     if (html.classList.contains("dark")) {
       sunIcon.classList.add("hidden");
@@ -250,19 +343,65 @@
       moonIcon.classList.add("hidden");
     }
   }
-
-  // Lấy trạng thái từ localStorage
   if (localStorage.theme === "dark") {
     html.classList.add("dark");
   } else {
     html.classList.remove("dark");
   }
-  updateIcons(); // cập nhật icon ngay khi load
-
+  updateIcons();
   toggleBtn.addEventListener("click", () => {
     html.classList.toggle("dark");
     localStorage.theme = html.classList.contains("dark") ? "dark" : "light";
     updateIcons();
   });
-</script>
 
+  // Mobile menu toggle logic
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuButton.classList.add('hidden');
+    mobileMenuCloseButton.classList.remove('hidden');
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuButton.classList.remove('hidden');
+    mobileMenuCloseButton.classList.add('hidden');
+  }
+
+  mobileMenuButton.addEventListener('click', openMenu);
+  mobileMenuCloseButton.addEventListener('click', closeMenu);
+
+  // Scroll animations
+  const animatedItems = document.querySelectorAll('.timeline-item, .scroll-animate');
+  const timelinePath = document.getElementById('timeline-path');
+  const timelinePathContainer = document.getElementById('timeline-path-container');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, {
+    threshold: 0.5
+  });
+
+  animatedItems.forEach(item => {
+    observer.observe(item);
+  });
+
+  // Animate timeline path
+  window.addEventListener('scroll', () => {
+      if (!timelinePathContainer) return;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const timelineTop = timelinePathContainer.offsetTop;
+    const timelineHeight = timelinePathContainer.offsetHeight;
+    const windowHeight = window.innerHeight;
+
+    if (scrollTop > timelineTop - windowHeight / 1.5) {
+        let scrollPercent = (scrollTop - (timelineTop - windowHeight / 1.5)) / (timelineHeight - windowHeight / 2);
+        scrollPercent = Math.min(1, Math.max(0, scrollPercent));
+        timelinePath.style.height = `${scrollPercent * 100}%`;
+    }
+  });
+</script>
