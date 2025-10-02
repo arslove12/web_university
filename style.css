@@ -1,3 +1,76 @@
+/* Simple decorative styles */
+body {
+  color: #000000; /* Black text for light mode */
+}
+.text-gray-600 {
+  color: #000000; /* Black text for light mode */
+}
+.hero-bg { background: linear-gradient(180deg, #fff9f0 0%, #f6efe6 100%); }
+.card-shadow { box-shadow: 0 6px 18px rgba(30,30,30,0.06); }
+.timeline-line { width: 4px; background: linear-gradient(#b38b46, #6b3f1f); } /* Adjusted width here */
+.timeline-dot {
+  background-color: #d69e2e; /* Amber color for dots */
+  border: 2px solid #fbd38d; /* Lighter amber border */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  z-index: 10; /* Make it pop above other elements */
+}
+a { /* Make links bolder in light mode */
+  font-weight: 600;
+}
+.border-amber-600 {
+  border-color: #a0a0a0; /* Darker border for light mode */
+}
+.border-b {
+  border-color: #a0a0a0; /* Darker border for light mode */
+}
+#mobile-menu {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+#mobile-menu.open {
+    transform: translateX(0);
+}
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.timeline-item {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.timeline-item.left {
+    transform: translateX(-30px);
+}
+.timeline-item.right {
+    transform: translateX(30px);
+}
+.timeline-item.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+.timeline-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.timeline-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.hero-button {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.dark .hero-button {
+    background-color: #3e2723; /* Dark brown from darkmode.css */
+    color: white;
+    border-color: #3e2723;
+}
+
 /* darkmode.css */
 .dark {
   /* General background and text colors */
