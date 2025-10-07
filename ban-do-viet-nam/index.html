@@ -9,18 +9,49 @@
     html, body { height: 100%; margin: 0; }
     #map { width: 100%; height: 100%; }
     .province-label {
-      background: rgba(255, 255, 255, 0.8);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       color: #333;
-      border: 1px solid #888;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      padding: 6px 10px;
+      text-align: center;
+      white-space: nowrap;
+      transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none; /* Ignore mouse events on the label itself */
+    }
+
+    .province-label-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1000; /* Ensure it's on top */
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
   <div id="map"></div>
+  <div id="close-button" class="hidden">&times;</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -30,9 +61,12 @@
     });
 
     const VN_CENTER = [16.0, 107.5];
+    let allProvincesLayer = null;
+    let detailedLayer = null;
+    const closeButton = document.getElementById('close-button');
+
     map.setView(VN_CENTER, 6);
 
-    // Hàm tạo màu pastel ngẫu nhiên
     function getRandomPastelColor() {
       const r = Math.round((Math.random() * 127) + 127);
       const g = Math.round((Math.random() * 127) + 127);
@@ -40,62 +74,130 @@
       return `rgb(${r},${g},${b})`;
     }
 
-    // Biến để lưu label đang hiển thị
-    let activeLabel = null;
+    const onEachFeature = (feature, layer) => {
+      const name = feature.properties.ten_tinh || "Không rõ";
+      let label = null;
+      let timeoutId = null;
 
-    // Nạp dữ liệu GeoJSON ranh giới tỉnh
-    fetch("vietnam_provinces.geojson")
-      .then(res => res.json())
-      .then(geojson => {
-        const provincesLayer = L.geoJSON(geojson, {
-          style: feature => ({
-            color: "#555",
-            weight: 1,
-            fillColor: getRandomPastelColor(),
-            fillOpacity: 0.7
-          }),
-          onEachFeature: (feature, layer) => {
-            const name = feature.properties.shapeName || "Không rõ";
+      layer.on('mouseover', function (e) {
+        layer.setStyle({ weight: 2, color: "#000" });
+        if (timeoutId) clearTimeout(timeoutId);
 
-            // Khi rê chuột vào tỉnh
-            layer.on('mouseover', function (e) {
-              const center = layer.getBounds().getCenter();
-              if (activeLabel) map.removeLayer(activeLabel);
-              activeLabel = L.marker(center, {
-                icon: L.divIcon({
-                  className: 'province-label',
-                  html: name
-                })
-              }).addTo(map);
-              layer.setStyle({ weight: 2, color: "#000" });
-            });
-
-            // Khi rời chuột khỏi tỉnh
-            layer.on('mouseout', function (e) {
-              if (activeLabel) {
-                map.removeLayer(activeLabel);
-                activeLabel = null;
-              }
-              layer.setStyle({ weight: 1, color: "#555" });
-            });
-          }
-        }).addTo(map);
-
-        map.fitBounds(provincesLayer.getBounds());
-        map.setMaxBounds(provincesLayer.getBounds());
+        const center = layer.getBounds().getCenter();
+        if (!label) {
+            label = L.marker(center, {
+                icon: L.divIcon({ className: 'province-label', html: name }),
+                interactive: false
+            }).addTo(map);
+        }
+        setTimeout(() => { if (label) label.getElement().classList.add('province-label-visible'); }, 10);
       });
 
-    // Marker mẫu
+      layer.on('mouseout', function (e) {
+        layer.setStyle({ weight: 1, color: "#555" });
+        if (label) {
+          label.getElement().classList.remove('province-label-visible');
+          timeoutId = setTimeout(() => { if (label) { map.removeLayer(label); label = null; } }, 200);
+        }
+      });
+    };
+
+    const onEachFeatureDetail = (feature, layer) => {
+        const name = feature.properties.ten_xa || "Không rõ";
+        let label = null;
+        let timeoutId = null;
+
+        layer.on('mouseover', function (e) {
+            layer.setStyle({ weight: 2, color: '#000' });
+            if (timeoutId) clearTimeout(timeoutId);
+
+            const center = layer.getBounds().getCenter();
+            if (!label) {
+                label = L.marker(center, {
+                    icon: L.divIcon({ className: 'province-label', html: name }),
+                    interactive: false
+                }).addTo(map);
+            }
+            setTimeout(() => { if (label) label.getElement().classList.add('province-label-visible'); }, 10);
+        });
+
+        layer.on('mouseout', function (e) {
+            layer.setStyle({ weight: 1, color: '#555' });
+            if (label) {
+                label.getElement().classList.remove('province-label-visible');
+                timeoutId = setTimeout(() => { if (label) { map.removeLayer(label); label = null; } }, 200);
+            }
+        });
+    };
+
+    const provinceFiles = [
+      "An Giang.geojson", "Bắc Ninh.geojson", "Cà Mau.geojson", "Cần Thơ.geojson", "Cao Bằng.geojson",
+      "Đà Nẵng.geojson", "Đắk Lắk.geojson", "Điện Biên.geojson", "Đồng Nai.geojson", "Đồng Tháp.geojson",
+      "Gia Lai .geojson", "Hà Nội.geojson", "Hà Tĩnh.geojson", "Hải Phòng.geojson", "Huế .geojson",
+      "Hưng Yên.geojson", "Khánh Hòa.geojson", "Lai Châu.geojson", "Lâm Đồng.geojson", "Lạng Sơn.geojson",
+      "Lào Cai.geojson", "Nghệ An.geojson", "Ninh Bình.geojson", "Phú Thọ.geojson", "Quảng Ngãi.geojson",
+      "Quảng Ninh.geojson", "Quảng Trị.geojson", "Sơn La.geojson", "Tây Ninh.geojson", "Thái Nguyên.geojson",
+      "Thanh Hóa.geojson", "TP. Hồ Chí Minh.geojson", "Tuyên Quang.geojson", "Vĩnh Long.geojson"
+    ];
+
+    Promise.all(provinceFiles.map(file => fetch(file).then(res => res.json())))
+      .then(allGeoJSONs => {
+        allProvincesLayer = L.featureGroup();
+        allGeoJSONs.forEach(geojson => {
+          const provinceLayer = L.geoJSON(geojson, {
+            style: () => ({ color: "#555", weight: 1, fillColor: getRandomPastelColor(), fillOpacity: 0.7 }),
+            onEachFeature: onEachFeature
+          });
+          allProvincesLayer.addLayer(provinceLayer);
+        });
+        allProvincesLayer.addTo(map);
+        map.fitBounds(allProvincesLayer.getBounds());
+        map.setMaxBounds(allProvincesLayer.getBounds());
+      });
+
     const cities = [
-      { name: "Hà Nội", coords: [21.0285, 105.8542] },
-      { name: "Hải Phòng", coords: [20.8449, 106.6881] },
-      { name: "Thanh Hóa", coords: [19.8075, 105.7769] }
+      { name: "Hà Nội", coords: [21.0285, 105.8542], file: "Hà Nội (phường xã) - 34.geojson" },
+      { name: "Hải Phòng", coords: [20.8449, 106.6881], file: "Hải Phòng (phường xã) - 34.geojson" },
+      { name: "Thanh Hóa", coords: [19.8075, 105.7769], file: "Thanh Hóa (phường xã) - 34.geojson" }
     ];
 
     cities.forEach(city => {
-      L.marker(city.coords)
-        .bindPopup(`<b>${city.name}</b>`)
-        .addTo(map);
+      L.marker(city.coords).addTo(map).on('click', () => {
+        fetch(city.file)
+          .then(res => {
+            if (!res.ok) {
+              throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+          })
+          .then(geojson => {
+            if (allProvincesLayer) map.removeLayer(allProvincesLayer);
+            if (detailedLayer) map.removeLayer(detailedLayer);
+
+            detailedLayer = L.geoJSON(geojson, {
+              style: () => ({ color: "#555", weight: 1, fillColor: getRandomPastelColor(), fillOpacity: 0.7 }),
+              onEachFeature: onEachFeatureDetail
+            }).addTo(map);
+
+            map.fitBounds(detailedLayer.getBounds());
+            map.setMaxBounds(null); // Allow free panning in detailed view
+            closeButton.classList.remove('hidden');
+          })
+          .catch(e => {
+            console.error('Error loading detailed map:', e);
+            alert('Đã có lỗi xảy ra khi tải bản đồ chi tiết. Vui lòng kiểm tra lại tên tệp và đường dẫn.');
+          });
+      });
+    });
+
+    closeButton.addEventListener('click', () => {
+      if (detailedLayer) map.removeLayer(detailedLayer);
+      if (allProvincesLayer) allProvincesLayer.addTo(map);
+      
+      detailedLayer = null;
+      map.fitBounds(allProvincesLayer.getBounds());
+      map.setMaxBounds(allProvincesLayer.getBounds());
+      closeButton.classList.add('hidden');
     });
   </script>
 </body>
