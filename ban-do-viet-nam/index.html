@@ -161,40 +161,57 @@
       { name: "Thanh Hóa", coords: [19.8075, 105.7769], file: "Thanh Hóa (phường xã) - 34.geojson" }
     ];
 
-    cities.forEach(city => {
-      L.marker(city.coords).addTo(map).on('click', () => {
-        fetch(city.file)
-          .then(res => {
-            if (!res.ok) {
-              throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            return res.json();
-          })
-          .then(geojson => {
-            if (allProvincesLayer) map.removeLayer(allProvincesLayer);
-            if (detailedLayer) map.removeLayer(detailedLayer);
+    const cityMarkers = [];
+    const detailMarkersLayer = L.featureGroup().addTo(map);
 
+    cities.forEach(city => {
+      const marker = L.marker(city.coords).addTo(map);
+      marker.on('click', () => {
+        // Ẩn các marker tỉnh bằng cách xóa chúng khỏi bản đồ
+        cityMarkers.forEach(m => map.removeLayer(m));
+        if (allProvincesLayer) map.removeLayer(allProvincesLayer);
+
+        // Tải và hiển thị ranh giới các xã/huyện
+        fetch(city.file)
+          .then(res => res.ok ? res.json() : Promise.reject(res.status))
+          .then(geojson => {
             detailedLayer = L.geoJSON(geojson, {
               style: () => ({ color: "#555", weight: 1, fillColor: getRandomPastelColor(), fillOpacity: 0.7 }),
               onEachFeature: onEachFeatureDetail
             }).addTo(map);
 
             map.fitBounds(detailedLayer.getBounds());
-            map.setMaxBounds(null); // Allow free panning in detailed view
-            closeButton.classList.remove('hidden');
+
+            // Hiển thị marker cho các xã/huyện mong muốn
+            if (city.name === "Hà Nội") {
+                L.marker([21.0285, 105.8542]).bindPopup('Hoàn Kiếm').addTo(detailMarkersLayer);
+            } else if (city.name === "Hải Phòng") {
+                L.marker([20.689, 106.479]).bindPopup('Vĩnh Bảo').addTo(detailMarkersLayer);
+                L.marker([20.731, 106.560]).bindPopup('Tiên Lãng').addTo(detailMarkersLayer);
+            } else if (city.name === "Thanh Hóa") {
+                L.marker([19.681, 105.800]).bindPopup('Quảng Xương').addTo(detailMarkersLayer);
+                L.marker([19.983, 105.967]).bindPopup('Nga Sơn').addTo(detailMarkersLayer);
+                L.marker([19.85, 105.86]).bindPopup('Hoằng Hóa').addTo(detailMarkersLayer);
+            }
           })
-          .catch(e => {
-            console.error('Error loading detailed map:', e);
-            alert('Đã có lỗi xảy ra khi tải bản đồ chi tiết. Vui lòng kiểm tra lại tên tệp và đường dẫn.');
-          });
+          .catch(e => console.error("Lỗi tải bản đồ chi tiết:", e));
+
+        // Hiển thị nút đóng
+        closeButton.classList.remove('hidden');
       });
+      cityMarkers.push(marker);
     });
 
     closeButton.addEventListener('click', () => {
+      // Xóa các marker và layer chi tiết
+      detailMarkersLayer.clearLayers();
       if (detailedLayer) map.removeLayer(detailedLayer);
+      detailedLayer = null;
+
+      // Hiển thị lại các marker tỉnh và layer toàn bản đồ
+      cityMarkers.forEach(m => m.addTo(map));
       if (allProvincesLayer) allProvincesLayer.addTo(map);
       
-      detailedLayer = null;
       map.fitBounds(allProvincesLayer.getBounds());
       map.setMaxBounds(allProvincesLayer.getBounds());
       closeButton.classList.add('hidden');
