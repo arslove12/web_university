@@ -182,16 +182,66 @@
 
             map.fitBounds(detailedLayer.getBounds());
 
+            // Data for detailed popups
+            const locationDetails = {
+              "Hoàn Kiếm": {
+                image: "hangga.jpg", // Replace with actual image path
+                content: "Giữa lòng Hà Nội cổ kính, thuốc lào Hàng Gà mang hơi thở của thủ đô xưa. Một hơi Hàng Gà như bước chân vào con ngõ rêu phong. Khói êm ái, vị ngọt hậu như hạt đậu rang, gợi nhớ tiếng rao đêm, ánh đèn vàng, và nhịp sống chậm rãi. Nó là món quà dành cho những tâm hồn hoài cổ, muốn tìm lại ký ức Hà Nội trong từng làn khói"
+              },
+              "Vĩnh Bảo": {
+                image: "https://via.placeholder.com/150", // Replace with actual image path
+                content: "Vĩnh Bảo là một huyện ngoại thành của thành phố Hải Phòng."
+              },
+              "Tiên Lãng": {
+                image: "https://via.placeholder.com/150", // Replace with actual image path
+                content: "Tiên Lãng là một huyện ven biển của thành phố Hải Phòng."
+              },
+              "Quảng Xương": {
+                image: "https://via.placeholder.com/150", // Replace with actual image path
+                content: "Quảng Xương là một huyện ven biển thuộc tỉnh Thanh Hóa."
+              },
+              "Nga Sơn": {
+                image: "https://via.placeholder.com/150", // Replace with actual image path
+                content: "Nga Sơn là một huyện ven biển nằm ở phía đông bắc tỉnh Thanh Hóa."
+              },
+              "Hoằng Hóa": {
+                image: "https://via.placeholder.com/150", // Replace with actual image path
+                content: "Hoằng Hóa là một huyện đồng bằng ven biển thuộc tỉnh Thanh Hóa."
+              }
+            };
+
+            const createPopupContent = (details) => {
+              return `<div style="width: 200px;">
+                        <img src="${details.image}" alt="Hình ảnh" style="width:100%; height:auto; border-radius: 4px;">
+                        <p style="margin-top: 10px;">${details.content}</p>
+                      </div>`;
+            };
+
             // Hiển thị marker cho các xã/huyện mong muốn
             if (city.name === "Hà Nội") {
-                L.marker([21.0285, 105.8542]).bindPopup('Hoàn Kiếm').addTo(detailMarkersLayer);
+                const details = locationDetails["Hoàn Kiếm"];
+                const popupContent = createPopupContent(details);
+                L.marker([21.0285, 105.8542]).bindPopup(popupContent).addTo(detailMarkersLayer);
             } else if (city.name === "Hải Phòng") {
-                L.marker([20.689, 106.479]).bindPopup('Vĩnh Bảo').addTo(detailMarkersLayer);
-                L.marker([20.731, 106.560]).bindPopup('Tiên Lãng').addTo(detailMarkersLayer);
+                let details = locationDetails["Vĩnh Bảo"];
+                let popupContent = createPopupContent(details);
+                L.marker([20.689, 106.479]).bindPopup(popupContent).addTo(detailMarkersLayer);
+
+                details = locationDetails["Tiên Lãng"];
+                popupContent = createPopupContent(details);
+                L.marker([20.731, 106.560]).bindPopup(popupContent).addTo(detailMarkersLayer);
             } else if (city.name === "Thanh Hóa") {
-                L.marker([19.681, 105.800]).bindPopup('Quảng Xương').addTo(detailMarkersLayer);
-                L.marker([19.983, 105.967]).bindPopup('Nga Sơn').addTo(detailMarkersLayer);
-                L.marker([19.85, 105.86]).bindPopup('Hoằng Hóa').addTo(detailMarkersLayer);
+                let details = locationDetails["Quảng Xương"];
+                let popupContent = createPopupContent(details);
+                L.marker([19.681, 105.800]).bindPopup(popupContent).addTo(detailMarkersLayer);
+
+                details = locationDetails["Nga Sơn"];
+                popupContent = createPopupContent(details);
+                L.marker([19.983, 105.967]).bindPopup(popupContent).addTo(detailMarkersLayer);
+
+                details = locationDetails["Hoằng Hóa"];
+                popupContent = createPopupContent(details);
+                L.marker([19.85, 105.86]).bindPopup(popupContent).addTo(detailMarkersLayer);
             }
           })
           .catch(e => console.error("Lỗi tải bản đồ chi tiết:", e));
