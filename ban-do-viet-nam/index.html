@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bản đồ Việt Nam (Hiển thị tên tỉnh khi rê chuột)</title>
+  <title>Bản đồ Việt Nam</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    html, body { height: 100%; margin: 0; }
-    #map { width: 100%; height: 100%; }
+    html, body { height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    #map { width: 100%; height: 100%; background-color: #FAF0E6; }
     .province-label {
-      background-color: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      color: #333;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 14px;
-      padding: 6px 10px;
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      color: #5C4033; /* Dark Brown */
+      font-family: 'Georgia', serif;
+      font-size: 16px;
+      font-weight: bold;
       text-align: center;
       white-space: nowrap;
       transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
       opacity: 0;
       transform: translateY(10px);
-      pointer-events: none; /* Ignore mouse events on the label itself */
+      pointer-events: none;
+      text-shadow: -1px -1px 0 #FAF0E6, 1px -1px 0 #FAF0E6, -1px 1px 0 #FAF0E6, 1px 1px 0 #FAF0E6, -2px 0 3px rgba(0,0,0,0.2);
     }
 
     .province-label-visible {
@@ -32,25 +32,39 @@
 
     #close-button {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 1000; /* Ensure it's on top */
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
       background: white;
-      border: 1px solid #ccc;
+      border: 2px solid rgba(0,0,0,0.2);
       border-radius: 4px;
       padding: 5px 10px;
       cursor: pointer;
-      font-family: Arial, sans-serif;
       font-size: 16px;
     }
 
     .hidden {
       display: none;
     }
+    
+    .map-title {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1001;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
+  <div class="map-title">Bản đồ Việt Nam</div>
   <div id="close-button" class="hidden">&times;</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -67,12 +81,28 @@
 
     map.setView(VN_CENTER, 6);
 
-    function getRandomPastelColor() {
-      const r = Math.round((Math.random() * 127) + 127);
-      const g = Math.round((Math.random() * 127) + 127);
-      const b = Math.round((Math.random() * 127) + 127);
-      return `rgb(${r},${g},${b})`;
+    const vintageColors = [
+        '#D2B48C', '#A0522D', '#8B4513', '#BC8F8F', '#F5DEB3', '#6B8E23', '#708090', '#BDB76B', '#CD853F', '#D8BFD8', '#556B2F', '#9370DB', '#F0E68C', '#C0C0C0', '#8FBC8F'
+    ];
+    let colorIndex = 0;
+
+    function getNextVintageColor() {
+        const color = vintageColors[colorIndex];
+        colorIndex = (colorIndex + 1) % vintageColors.length;
+        return color;
     }
+
+    const defaultStyle = {
+        weight: 1,
+        color: '#444',
+        fillOpacity: 0.75,
+    };
+
+    const highlightStyle = {
+        weight: 2.5,
+        color: '#000',
+        fillOpacity: 0.9,
+    };
 
     const onEachFeature = (feature, layer) => {
       const name = feature.properties.ten_tinh || "Không rõ";
@@ -80,7 +110,7 @@
       let timeoutId = null;
 
       layer.on('mouseover', function (e) {
-        layer.setStyle({ weight: 2, color: "#000" });
+        layer.setStyle(highlightStyle);
         if (timeoutId) clearTimeout(timeoutId);
 
         const center = layer.getBounds().getCenter();
@@ -94,7 +124,7 @@
       });
 
       layer.on('mouseout', function (e) {
-        layer.setStyle({ weight: 1, color: "#555" });
+        layer.setStyle({...defaultStyle, fillColor: layer.options.fillColor});
         if (label) {
           label.getElement().classList.remove('province-label-visible');
           timeoutId = setTimeout(() => { if (label) { map.removeLayer(label); label = null; } }, 200);
@@ -108,7 +138,7 @@
         let timeoutId = null;
 
         layer.on('mouseover', function (e) {
-            layer.setStyle({ weight: 2, color: '#000' });
+            layer.setStyle(highlightStyle);
             if (timeoutId) clearTimeout(timeoutId);
 
             const center = layer.getBounds().getCenter();
@@ -122,7 +152,7 @@
         });
 
         layer.on('mouseout', function (e) {
-            layer.setStyle({ weight: 1, color: '#555' });
+            layer.setStyle({...defaultStyle, fillColor: layer.options.fillColor});
             if (label) {
                 label.getElement().classList.remove('province-label-visible');
                 timeoutId = setTimeout(() => { if (label) { map.removeLayer(label); label = null; } }, 200);
@@ -143,13 +173,17 @@
     Promise.all(provinceFiles.map(file => fetch(file).then(res => res.json())))
       .then(allGeoJSONs => {
         allProvincesLayer = L.featureGroup();
+        
         allGeoJSONs.forEach(geojson => {
+          const provinceColor = getNextVintageColor();
           const provinceLayer = L.geoJSON(geojson, {
-            style: () => ({ color: "#555", weight: 1, fillColor: getRandomPastelColor(), fillOpacity: 0.7 }),
+            style: {...defaultStyle, fillColor: provinceColor},
             onEachFeature: onEachFeature
           });
+          provinceLayer.options.fillColor = provinceColor; // Store color
           allProvincesLayer.addLayer(provinceLayer);
         });
+        
         allProvincesLayer.addTo(map);
         map.fitBounds(allProvincesLayer.getBounds());
         map.setMaxBounds(allProvincesLayer.getBounds());
@@ -167,47 +201,29 @@
     cities.forEach(city => {
       const marker = L.marker(city.coords).addTo(map);
       marker.on('click', () => {
-        // Ẩn các marker tỉnh bằng cách xóa chúng khỏi bản đồ
         cityMarkers.forEach(m => map.removeLayer(m));
         if (allProvincesLayer) map.removeLayer(allProvincesLayer);
 
-        // Tải và hiển thị ranh giới các xã/huyện
         fetch(city.file)
           .then(res => res.ok ? res.json() : Promise.reject(res.status))
           .then(geojson => {
             detailedLayer = L.geoJSON(geojson, {
-              style: () => ({ color: "#555", weight: 1, fillColor: getRandomPastelColor(), fillOpacity: 0.7 }),
+              style: () => ({...defaultStyle, fillColor: getNextVintageColor()}),
               onEachFeature: onEachFeatureDetail
             }).addTo(map);
 
             map.fitBounds(detailedLayer.getBounds());
 
-            // Data for detailed popups
             const locationDetails = {
               "Hoàn Kiếm": {
-                image: "hangga.jpg", // Replace with actual image path
+                image: "hangga.jpg",
                 content: "Giữa lòng Hà Nội cổ kính, thuốc lào Hàng Gà mang hơi thở của thủ đô xưa. Một hơi Hàng Gà như bước chân vào con ngõ rêu phong. Khói êm ái, vị ngọt hậu như hạt đậu rang, gợi nhớ tiếng rao đêm, ánh đèn vàng, và nhịp sống chậm rãi. Nó là món quà dành cho những tâm hồn hoài cổ, muốn tìm lại ký ức Hà Nội trong từng làn khói"
               },
-              "Vĩnh Bảo": {
-                image: "https://via.placeholder.com/150", // Replace with actual image path
-                content: "Vĩnh Bảo là một huyện ngoại thành của thành phố Hải Phòng."
-              },
-              "Tiên Lãng": {
-                image: "https://via.placeholder.com/150", // Replace with actual image path
-                content: "Tiên Lãng là một huyện ven biển của thành phố Hải Phòng."
-              },
-              "Quảng Xương": {
-                image: "https://via.placeholder.com/150", // Replace with actual image path
-                content: "Quảng Xương là một huyện ven biển thuộc tỉnh Thanh Hóa."
-              },
-              "Nga Sơn": {
-                image: "https://via.placeholder.com/150", // Replace with actual image path
-                content: "Nga Sơn là một huyện ven biển nằm ở phía đông bắc tỉnh Thanh Hóa."
-              },
-              "Hoằng Hóa": {
-                image: "https://via.placeholder.com/150", // Replace with actual image path
-                content: "Hoằng Hóa là một huyện đồng bằng ven biển thuộc tỉnh Thanh Hóa."
-              }
+              "Vĩnh Bảo": { image: "https://via.placeholder.com/150", content: "Vĩnh Bảo là một huyện ngoại thành của thành phố Hải Phòng." },
+              "Tiên Lãng": { image: "https://via.placeholder.com/150", content: "Tiên Lãng là một huyện ven biển của thành phố Hải Phòng." },
+              "Quảng Xương": { image: "https://via.placeholder.com/150", content: "Quảng Xương là một huyện ven biển thuộc tỉnh Thanh Hóa." },
+              "Nga Sơn": { image: "https://via.placeholder.com/150", content: "Nga Sơn là một huyện ven biển nằm ở phía đông bắc tỉnh Thanh Hóa." },
+              "Hoằng Hóa": { image: "https://via.placeholder.com/150", content: "Hoằng Hóa là một huyện đồng bằng ven biển thuộc tỉnh Thanh Hóa." }
             };
 
             const createPopupContent = (details) => {
@@ -217,7 +233,6 @@
                       </div>`;
             };
 
-            // Hiển thị marker cho các xã/huyện mong muốn
             if (city.name === "Hà Nội") {
                 const details = locationDetails["Hoàn Kiếm"];
                 const popupContent = createPopupContent(details);
@@ -246,19 +261,16 @@
           })
           .catch(e => console.error("Lỗi tải bản đồ chi tiết:", e));
 
-        // Hiển thị nút đóng
         closeButton.classList.remove('hidden');
       });
       cityMarkers.push(marker);
     });
 
     closeButton.addEventListener('click', () => {
-      // Xóa các marker và layer chi tiết
       detailMarkersLayer.clearLayers();
       if (detailedLayer) map.removeLayer(detailedLayer);
       detailedLayer = null;
 
-      // Hiển thị lại các marker tỉnh và layer toàn bản đồ
       cityMarkers.forEach(m => m.addTo(map));
       if (allProvincesLayer) allProvincesLayer.addTo(map);
       
