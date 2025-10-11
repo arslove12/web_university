@@ -53,12 +53,14 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 1001;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(250, 240, 230, 0.8);
         padding: 10px 20px;
-        border-radius: 5px;
+        border-radius: 8px;
         font-size: 1.5em;
         font-weight: bold;
-        color: #333;
+        font-family: 'Georgia', serif;
+        color: #5C4033;
+        border: 1px solid #8B4513;
     }
   </style>
 </head>
@@ -160,30 +162,30 @@
         });
     };
 
-    const provinceFiles = [
-      "An Giang.geojson", "Bắc Ninh.geojson", "Cà Mau.geojson", "Cần Thơ.geojson", "Cao Bằng.geojson",
-      "Đà Nẵng.geojson", "Đắk Lắk.geojson", "Điện Biên.geojson", "Đồng Nai.geojson", "Đồng Tháp.geojson",
-      "Gia Lai .geojson", "Hà Nội.geojson", "Hà Tĩnh.geojson", "Hải Phòng.geojson", "Huế .geojson",
-      "Hưng Yên.geojson", "Khánh Hòa.geojson", "Lai Châu.geojson", "Lâm Đồng.geojson", "Lạng Sơn.geojson",
-      "Lào Cai.geojson", "Nghệ An.geojson", "Ninh Bình.geojson", "Phú Thọ.geojson", "Quảng Ngãi.geojson",
-      "Quảng Ninh.geojson", "Quảng Trị.geojson", "Sơn La.geojson", "Tây Ninh.geojson", "Thái Nguyên.geojson",
-      "Thanh Hóa.geojson", "TP. Hồ Chí Minh.geojson", "Tuyên Quang.geojson", "Vĩnh Long.geojson"
-    ];
+    const provinceFiles = ['provinces_part1.geojson', 'provinces_part2.geojson', 'provinces_part3.geojson', 'provinces_part4.geojson'];
 
     Promise.all(provinceFiles.map(file => fetch(file).then(res => res.json())))
       .then(allGeoJSONs => {
-        allProvincesLayer = L.featureGroup();
-        
-        allGeoJSONs.forEach(geojson => {
-          const provinceColor = getNextVintageColor();
-          const provinceLayer = L.geoJSON(geojson, {
-            style: {...defaultStyle, fillColor: provinceColor},
+        const allFeatures = allGeoJSONs.flatMap(geojson => geojson.features);
+        const combinedGeoJSON = { type: "FeatureCollection", features: allFeatures };
+
+        allProvincesLayer = L.geoJSON(combinedGeoJSON, {
+            style: (feature) => ({
+                ...defaultStyle,
+                fillColor: getNextVintageColor()
+            }),
             onEachFeature: onEachFeature
-          });
-          provinceLayer.options.fillColor = provinceColor; // Store color
-          allProvincesLayer.addLayer(provinceLayer);
         });
-        
+
+        // Manually assign and store the color for each layer
+        let tempColorIndex = 0;
+        allProvincesLayer.eachLayer(layer => {
+            const color = vintageColors[tempColorIndex % vintageColors.length];
+            layer.setStyle({fillColor: color});
+            layer.options.fillColor = color; // Store color for mouseout
+            tempColorIndex++;
+        });
+
         allProvincesLayer.addTo(map);
         map.fitBounds(allProvincesLayer.getBounds());
         map.setMaxBounds(allProvincesLayer.getBounds());
