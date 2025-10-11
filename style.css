@@ -2,10 +2,15 @@
 body {
   color: #000000; /* Black text for light mode */
 }
+
+.bg-gray-100 {
+  background-color: #E5E7EB; /* Slightly darker footer for light mode */
+}
 .text-gray-600 {
   color: #000000; /* Black text for light mode */
 }
-.hero-bg { background: linear-gradient(180deg, #fff9f0 0%, #f6efe6 100%); }
+.hero-bg { background: #3e2723; color: white; }
+.hero-bg .text-gray-600 { color: white; }
 .card-shadow { box-shadow: 0 6px 18px rgba(30,30,30,0.06); }
 .timeline-line { width: 4px; background: linear-gradient(#b38b46, #6b3f1f); } /* Adjusted width here */
 .timeline-dot {
