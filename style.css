@@ -198,3 +198,7 @@ a { /* Make links bolder in light mode */
 #moon-icon {
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1)); /* Add a black "border" */
 }
+
+.dark .text-gray-900 {
+  color: var(--color-text-primary);
+}
