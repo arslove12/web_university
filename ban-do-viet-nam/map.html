@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bản đồ Việt Nam</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    html, body { height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    #map { width: 100%; height: 100%; background-color: #FAF0E6; }
+    .province-label {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      color: #5C4033; /* Dark Brown */
+      font-family: 'Georgia', serif;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      white-space: nowrap;
+      transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      text-shadow: -1px -1px 0 #FAF0E6, 1px -1px 0 #FAF0E6, -1px 1px 0 #FAF0E6, 1px 1px 0 #FAF0E6, -2px 0 3px rgba(0,0,0,0.2);
+    }
+
+    .province-label-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      background: white;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .popup-page {
+      display: none;
+    }
+    .popup-page.active {
+      display: block;
+    }
+    
+
+  </style>
+</head>
+
+<body>
+    <header class="hero-bg border-b">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full  flex items-center justify-center text-white font-bold">
+          <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAflBMVEXaJR3//wDbMCnZEh7qmhTXAB7ZHR3ZGx3++APYCx721AzspBPbLhz99QTpkxX88gX54Qn32QvmgBflehfzxw7xvRDvtBHiZRnjbBj55AnywQ/wuBDhXhn77QbeRxvrnhTcOhzojBbnhhbkdBjgWBrurxHfThr0zA3fUxrcNxyPL/0XAAAEB0lEQVR4nO3d6XaiQBAFYHva6hYXXDJZjHvc4vu/4CgIsjQK6Bzt6vv9TnKg5LI0VbHRAAAAAAAAAAAAAAAAAAAAAAAAAICL7rM34PXQX3r2JrwatRRL9eyNeDGyKZry2RvxYmggBghPiuoKIboIT9IxOgLhSTtGRyA8GeLk2RvxUqQf0MRHeC5oGNRkiPBcKBHChScmV+earBCeCLXPNWkjPBEtIjhOzuRPXJMfFCVE+7gme4Qn5IkL79kb8xr0KFGTkX725ryERHQQnjMSSajJkX5L1eQN4TktTqdqgqXqRjY6CM+RXmdqskZ46DtTk28cKNnoIDwN/ZWryZfr4fHeczV5d/3+nlq5mrQcD4/+zJVEiE+3w+NNDDWZuB0eQ3RcD4+eGkoixNTl8Hgfxpp8uBwe6hlr0nM4PGpjLIkQG4Yvv5QshbYFNdlSuT9g0XlHrTvNMvx+QU36fqnf79j0DC3N585Hm1j1NohM96eP9mnZqVjr9u2duktbW3WUBMj/ryXxLTtIQt686BR6v/7c0ts6RfnFkcd4J3tvYCi7AP0YaytzE5HdwcMrMujad3JNUdR5cEk6FucmQhvTGkldrY3VuYlob397X0vaexbdzV9FP7f3tpQVi4Mk5C1nD6jIbGnpTYmZovufCj8YnFzTKP/Cr5ovRrmJSDW8oyLDhuU3JQWoWbskTXa5idCu3lNhb8cwNxGd6zYp45u43JSY0eh2DTJGjA+SkOyOK1VkfOB5ck1RhW8wTLZsT65pNDW//svrTdnnJpJpiS3mULOsd7saZ6wecK7R5a89zoxpUPn1FGfGNPItscUcqUlmEOM6R8Y0Sl91Thy58lSJjiPhyQ1iXGdTi0ltFR+NnRjTqBYdJ8JjGMS4zoExDcMgxnUOjGlUjY4D4TEOYgRM0wgB9mMaxkGMo/6Oitqa2I9pGAcxwmVoVXCV5j6mocyDGG/hbpP5SWjKe/nROIgxjhuPzG1NzMc0TIMYycYjY1sT7zENwyBGK7MMTdP8GYfjmEbMy73G2OdmK7TMLcNtOYeHspdbY+MRrTI/1WccHrVL7+usoBs619a04xseL30CnRS+41OUvrXr8A0PpT7+q93Q6bamGdvwqHliN281HslGsq1pzjU8MhGdxc1344oWifBwbS6guMui91smDPQb3+GNmYZHLaM9/FuyG1pfXnsw/UIAGWWhQuNR3Na04Bmec3SqNR7Jw5hxeNQh2LmqjUdRW9OBY3iCf+tfZ/41nMtl+YUAp3/r39Z11laDuVyOXwhw+kaM2vOvp7lcht+mIRetO+ZfvXmL4ZVH+t49H7TyfIavNO79mBmWBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7PYHsv4Bfwktl+d1EYQAAAAASUVORK5CYII=></div>
+        <div class="flex-grow">
+          <h1 class="text-xl md:text-2xl font-extrabold">Thuốc Lào Việt Nam</h1>
+          <p class="text-xs md:text-sm text-gray-600">Lịch sử — Tập quán — Nghệ thuật</p>
+        </div>
+      </a>
+      <div class="flex items-center space-x-2">
+        <nav class=" md:flex space-x-4 text-sm">
+            <a href="../index.html" class="hover:underline">Trang chủ</a>
+            <a href="../lich_su_chi_tiet.html" class="hover:underline">Lịch sử</a>
+            <a href="./map.html" class="hover:underline">Bản đồ</a>
+            <a href="../van_hoa.html" class="hover:underline">Văn hóa</a>
+        </nav>
+
+
+          </button>
+          <!-- Mobile Menu Buttons -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="p-2 rounded-md text-gray-800 hover:bg-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+            <button id="mobile-menu-close-button" class="hidden p-2 rounded-md text-gray-800 hover:bg-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div id="map"></div>
+  <div id="close-button" class="hidden">&times;</div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map', {
+      zoomControl: false,
+      attributionControl: false
+    });
+
+    const VN_CENTER = [16.0, 107.5];
+    let allProvincesLayer = null;
+    let detailedLayer = null;
+    const closeButton = document.getElementById('close-button');
+
+    map.setView(VN_CENTER, 6);
+
+    const vintageColors = [
+        '#D2B48C', '#A0522D', '#8B4513', '#BC8F8F', '#F5DEB3', '#6B8E23', '#708090', '#BDB76B', '#CD853F', '#D8BFD8', '#556B2F', '#9370DB', '#F0E68C', '#C0C0C0', '#8FBC8F'
+    ];
+    let colorIndex = 0;
+
+    function getNextVintageColor() {
+        const color = vintageColors[colorIndex];
+        colorIndex = (colorIndex + 1) % vintageColors.length;
+        return color;
+    }
+
+    const defaultStyle = {
+        weight: 1,
+        color: '#444',
+        fillOpacity: 0.75,
+    };
+
+    const highlightStyle = {
+        weight: 2.5,
+        color: '#000',
+        fillOpacity: 0.9,
+    };
+
+    const onEachFeature = (feature, layer) => {
+      const name = feature.properties.ten_tinh || "Không rõ";
+      let label = null;
+      let timeoutId = null;
+
+      layer.on('mouseover', function (e) {
+        layer.setStyle(highlightStyle);
+        if (timeoutId) clearTimeout(timeoutId);
+
+        const center = layer.getBounds().getCenter();
+        if (!label) {
+            label = L.marker(center, {
+                icon: L.divIcon({ className: 'province-label', html: name }),
+                interactive: false
+            }).addTo(map);
+        }
+        setTimeout(() => { if (label) label.getElement().classList.add('province-label-visible'); }, 10);
+      });
+
+      layer.on('mouseout', function (e) {
+        layer.setStyle({...defaultStyle, fillColor: layer.options.fillColor});
+        if (label) {
+          label.getElement().classList.remove('province-label-visible');
+          timeoutId = setTimeout(() => { if (label) { map.removeLayer(label); label = null; } }, 200);
+        }
+      });
+    };
+
+    const onEachFeatureDetail = (feature, layer) => {
+        const name = feature.properties.ten_xa || "Không rõ";
+        let label = null;
+        let timeoutId = null;
+
+        layer.on('mouseover', function (e) {
+            layer.setStyle(highlightStyle);
+            if (timeoutId) clearTimeout(timeoutId);
+
+            const center = layer.getBounds().getCenter();
+            if (!label) {
+                label = L.marker(center, {
+                    icon: L.divIcon({ className: 'province-label', html: name }),
+                    interactive: false
+                }).addTo(map);
+            }
+            setTimeout(() => { if (label) label.getElement().classList.add('province-label-visible'); }, 10);
+        });
+
+        layer.on('mouseout', function (e) {
+            layer.setStyle({...defaultStyle, fillColor: layer.options.fillColor});
+            if (label) {
+                label.getElement().classList.remove('province-label-visible');
+                timeoutId = setTimeout(() => { if (label) { map.removeLayer(label); label = null; } }, 200);
+            }
+        });
+    };
+
+    const provinceFiles = ['provinces_part1.geojson', 'provinces_part2.geojson', 'provinces_part3.geojson', 'provinces_part4.geojson'];
+
+    Promise.all(provinceFiles.map(file => fetch(file).then(res => res.json())))
+      .then(allGeoJSONs => {
+        const allFeatures = allGeoJSONs.flatMap(geojson => geojson.features);
+        const combinedGeoJSON = { type: "FeatureCollection", features: allFeatures };
+
+        allProvincesLayer = L.geoJSON(combinedGeoJSON, {
+            style: (feature) => ({
+                ...defaultStyle,
+                fillColor: getNextVintageColor()
+            }),
+            onEachFeature: onEachFeature
+        });
+
+        // Manually assign and store the color for each layer
+        let tempColorIndex = 0;
+        allProvincesLayer.eachLayer(layer => {
+            const color = vintageColors[tempColorIndex % vintageColors.length];
+            layer.setStyle({fillColor: color});
+            layer.options.fillColor = color; // Store color for mouseout
+            tempColorIndex++;
+        });
+
+        allProvincesLayer.addTo(map);
+        map.fitBounds(allProvincesLayer.getBounds());
+        map.setMaxBounds(allProvincesLayer.getBounds());
+      });
+
+    const cities = [
+      { name: "Hà Nội", coords: [21.0285, 105.8542], file: "Hà Nội (phường xã) - 34.geojson" },
+      { name: "Hải Phòng", coords: [20.8449, 106.6881], file: "Hải Phòng (phường xã) - 34.geojson" },
+      { name: "Thanh Hóa", coords: [19.8075, 105.7769], file: "Thanh Hóa (phường xã) - 34.geojson" }
+    ];
+
+    const cityMarkers = [];
+    const detailMarkersLayer = L.featureGroup().addTo(map);
+    const popupState = {};
+
+    function switchPage(popupId, direction) {
+        const state = popupState[popupId];
+        if (!state) return;
+
+        const newPage = state.currentPage + direction;
+        if (newPage < 1 || newPage > state.totalPages) return;
+
+        const currentPageElement = document.getElementById(`page-${popupId}-${state.currentPage}`);
+        if (currentPageElement) currentPageElement.classList.remove('active');
+
+        const newPageElement = document.getElementById(`page-${popupId}-${newPage}`);
+        if (newPageElement) newPageElement.classList.add('active');
+
+        state.currentPage = newPage;
+
+        const prevBtn = document.getElementById(`prev-btn-${popupId}`);
+        const nextBtn = document.getElementById(`next-btn-${popupId}`);
+
+        if (prevBtn) prevBtn.style.display = newPage === 1 ? 'none' : 'inline-block';
+        if (nextBtn) nextBtn.style.display = newPage === state.totalPages ? 'none' : 'inline-block';
+    }
+
+    cities.forEach(city => {
+      const marker = L.marker(city.coords).addTo(map);
+      marker.on('click', () => {
+        cityMarkers.forEach(m => map.removeLayer(m));
+        if (allProvincesLayer) map.removeLayer(allProvincesLayer);
+
+        fetch(city.file)
+          .then(res => res.ok ? res.json() : Promise.reject(res.status))
+          .then(geojson => {
+            detailedLayer = L.geoJSON(geojson, {
+              style: () => ({...defaultStyle, fillColor: getNextVintageColor()}),
+              onEachFeature: onEachFeatureDetail
+            }).addTo(map);
+
+            map.fitBounds(detailedLayer.getBounds());
+
+            const locationDetails = {
+              "Hoàn Kiếm": {
+                pages: [
+                  { image: "hangga1.jpg", content: "Hàng Gà, Hà Nội, nơi thuốc lào xen lẫn luống đậu, mang hơi thở của thủ đô cổ kính. Lá thuốc được trồng trên đất Hà Nội, thấm đẫm vị đô thị, thái sợi dẻo, ủ với hương đất trời để tạo nên một sản phẩm độc đáo. Đây là đặc sản phố cổ, gắn với những con ngõ nhỏ, những câu chuyện đêm khuya, và ký ức của một Hà Nội xưa đầy hoài niệm, nơi thời gian như ngừng trôi." },
+                  { image: "hangga2.jpg", content: "Một hơi Hàng Gà như bước chân vào con ngõ rêu phong của Hà Nội. Khói êm ái, vị ngọt hậu như hạt đậu rang, thơm lừng như khói than từ bếp củi ngày xưa. Không quá mạnh, nhưng đủ say đắm, nó gợi nhớ tiếng rao đêm, ánh đèn vàng, và nhịp sống chậm rãi của một thời đã xa. Đây là loại thuốc dành cho những ai muốn tìm chút bình yên giữa lòng đô thị tấp nập." },
+                  { image: "hangga3.jpg", content: "Hàng Gà là món quà dành cho những tâm hồn hoài cổ, những người muốn tìm lại ký ức Hà Nội trong từng làn khói. Nó là cầu nối giữa quá khứ và hiện tại, mang đến sự thư thái, như một tách trà nóng trong chiều đông giá lạnh." }
+                ]
+              },
+              "Vĩnh Bảo": {
+                pages: [
+                  { image: "vinhbao1.jpg", content: "Vĩnh Bảo, Hải Phòng, nơi dòng sông Hồng bồi đắp phù sa trù phú, là quê hương của thuốc lào từ hàng trăm năm. Lá thuốc được hái vào những ngày tháng 4-5 âm lịch, khi nắng gió làm lá dày cộm, chín vàng rực rỡ. Người dân ủ thuốc trong hầm đất kín, thái sợi lớn, phơi nắng thoáng để giữ màu nâu cánh gián óng ánh như viên ngọc quý. Đây là thuốc lào của sự gắn kết, của những buổi chiều bên bờ sông, nơi bạn bè quây quần, tiếng cười vang vọng hòa cùng tiếng nước chảy" },
+                  { image: "vinhbao2.jpg", content: "Hút Vĩnh Bảo, bạn như đứng giữa dòng sông Hồng, cảm nhận vị cay nồng như ngọn lửa đầu tiên, rồi ngọt ngào như vòng tay mẹ ôm lấy tâm hồn. Khói mịn màng, sảng khoái, như một bản hòa ca của đất trời, gợi nhớ những ngày quê đầy ắp yêu thương. Mỗi hơi khói là một lời nhắc nhở về sự trù phú của quê hương, về những khoảnh khắc giản dị nhưng đong đầy ý nghĩa bên những người thân yêu." },
+                  { image: "vinhbao3.jpg", content: "Vĩnh Bảo là người bạn đồng hành của những tâm hồn yêu đời. Nó mang đến hơi ấm của làng quê, biến mỗi hơi khói thành một câu chuyện sẻ chia. Đây là lựa chọn hoàn hảo cho những buổi tụ họp hay những phút giây bạn muốn tìm lại chính mình giữa nhịp sống vội vã." }
+                ]
+              },
+              "Tiên Lãng": {
+                pages: [
+                  { image: "tienlang1.jpg", content: "Tiên Lãng, Hải Phòng, nơi sinh ra “thuốc lào tiến vua” từ thời chúa Trịnh, là biểu tượng của sự tinh hoa. Chỉ trồng trên những “ruộng Chùa” thiêng liêng ở làng An Tử Hạ, lá thuốc được chọn lọc kỹ càng, hái khi chín già, thái sợi nhỏ như tơ, ủ theo bí quyết gia truyền để tạo nên hương thơm không nơi nào sánh được. Với màu nâu vàng óng ánh và hàm lượng nicotin vừa phải, Tiên Lãng từng là món quà dâng lên cung đình, nay là niềm tự hào được cả thế giới biết đến." },
+                  { image: "tienlang2.jpg", content: "Hút Tiên Lãng, bạn như chạm vào một viên ngọc quý của lịch sử. Khói êm ái, mượt mà như lụa, mang vị ngọt thanh kéo dài, như nhấp một ly rượu quý trong ánh hoàng hôn. Hương thơm lan tỏa, khiến tâm hồn lâng lâng, như bay giữa những tầng mây của một thời vàng son. Mỗi hơi thuốc là một hành trình trở về với sự kiêu hãnh của dân tộc, là lời nhắc nhở về những giá trị bất biến." },
+                  { image: "tienlang3.jpg", content: "Tiên Lãng là lựa chọn của những tâm hồn tinh tế, những người khao khát một trải nghiệm đẳng cấp. Nó không chỉ là thuốc lào, mà là một di sản văn hóa, một món quà từ quá khứ để bạn trân quý hôm nay và truyền cảm hứng cho mai sau." }
+                ]
+              },
+              "Quảng Xương": {
+                pages: [
+                  { image: "quangxuong1.jpg", content: "Quảng Xương, Thanh Hóa, nơi nắng gió miền Trung khắc nghiệt tôi luyện nên những lá thuốc dày, đậm chất. Lá được hái vào cuối tháng 4 âm lịch, khi nắng cháy làm lá chín vàng, thái sợi dài dai, phơi đủ nắng để giữ độ đậm. Đây là thuốc lào của sự kiên cường, của những người nông dân đối mặt với đất trời để tạo ra một sản phẩm đầy cá tính, được yêu thích khắp Bắc Trung Bộ, như một biểu tượng của sức mạnh bất khuất." },
+                  { image: "quangxuong2.jpg", content: "Quảng Xương là một cơn sóng biển dữ dội, cuốn bạn vào một hành trình cảm xúc mãnh liệt. Khói cay nồng, bùng nổ như ngọn lửa, đánh thức mọi giác quan, rồi để lại hậu vị chát nhẹ như lời thì thầm về sự mạnh mẽ của cuộc đời. Hút xong, bạn như vừa chinh phục một ngọn núi, lòng tràn đầy phấn khích và tự hào, sẵn sàng đối mặt với mọi thử thách." },
+                  { image: "quangxuong3.jpg", content: "Tại sao bạn sẽ yêu: Nếu bạn muốn cảm nhận sức mạnh của đất trời miền Trung, Quảng Xương là lựa chọn không thể bỏ qua. Nó là lời tuyên ngôn dành cho những tâm hồn dám sống, dám thử thách, và dám yêu. Mỗi hơi khói là một lần bạn khẳng định bản thân, như ngọn sóng vỗ vào bờ đá, bất khuất và kiêu hãnh." }
+                ]
+              },
+              "Nga Sơn": {
+                pages: [
+                  { image: "ngason1.jpg", content: "Nga Sơn, Thanh Hóa, nơi đất bazan màu mỡ và truyền thống trồng thuốc từ thời kháng chiến. Lá được hái khi vừa bánh tẻ, ủ se, phơi nắng nhẹ để giữ độ dịu dàng. Đây là “thức quà quý” của xứ Thanh, mang sự cân bằng hoàn hảo, từng được xuất khẩu như một biểu tượng của niềm tự hào dân tộc." },
+                  { image: "ngason2.jpg", content: "Nga Sơn là một lời ru êm ái, khói mượt mà như lụa, vị ngọt thanh như nước suối nguồn, lan tỏa sự ấm áp từ ngực đến tận trái tim. Hút xong, lòng bạn nhẹ nhàng, như được ôm ấp bởi điệu hò quê hương, như trở về vòng tay mẹ những ngày thơ bé. Đây là loại thuốc dành cho những buổi chiều mưa, khi bạn cần một người bạn thầm lặng để sẻ chia." },
+                  { image: "ngason3.jpg", content: "Tại sao bạn sẽ yêu: Nga Sơn là liều thuốc cho tâm hồn, là lựa chọn cho những khoảnh khắc cần sự an yên. Nó mang bạn về với quê nhà, nơi mọi muộn phiền tan biến, chỉ còn lại sự thanh thản và tình yêu thương." }
+                ]
+              },
+              "Hoằng Hóa": {
+                pages: [
+                  { image: "hoanghoa1.jpg", content: "Hoằng Hóa, Thanh Hóa, nơi biển và sông Mã hòa quyện, tạo nên lá thuốc đậm đà từ thế kỷ 19. Lá dày, thái lớn, ủ lâu để tăng độ nồng, là loại thuốc “nặng” nhất xứ Thanh. Đây là sản phẩm của ngư dân và nông dân, gắn với lễ hội làng, mang tinh thần kiên cường của miền biển, như những con thuyền vượt qua giông bão." },
+                  { image: "hoanghoa2.jpg", content: "Hút Hoằng Hóa, bạn như đứng trước đại dương mênh mông. Khói nồng, đậm, mặn ngọt như vị biển, phê lâu mà không khé họng. Mỗi hơi là một cơn sóng, đánh thức sức sống mãnh liệt trong bạn, như tiếng gọi của những con thuyền ra khơi. Đây là loại thuốc dành cho những ai yêu sự dữ dội, muốn khám phá bản thân qua từng làn khói." },
+                  { image: "hoanghoa3.jpg", content: "Hoằng Hóa là lời tuyên ngôn của sự mạnh mẽ. Nó dành cho những tâm hồn khao khát tự do, muốn cảm nhận sức sống mãnh liệt của miền biển. Mỗi hơi khói là một lần bạn khẳng định mình, như con sóng vỗ vào bờ, kiêu hãnh và bất khuất." }
+                ]
+              }
+            };
+
+            const createPopupContent = (details, popupId) => {
+              const totalPages = details.pages.length;
+              popupState[popupId] = { currentPage: 1, totalPages: totalPages };
+
+              let content = `<div style="width: 200px;">`;
+
+              for (let i = 0; i < totalPages; i++) {
+                const page = details.pages[i];
+                content += `<div id="page-${popupId}-${i+1}" class="popup-page ${i === 0 ? 'active' : ''}">
+                              <img src="${page.image}" alt="Hình ảnh" style="width:100%; height:auto; border-radius: 4px;">
+                              <p style="margin-top: 10px;">${page.content}</p>
+                            </div>`;
+              }
+
+              content += `<div style="text-align: center; margin-top: 10px;">
+                            <button id="prev-btn-${popupId}" onclick="switchPage('${popupId}', -1)" style="display: none;">&lt;</button>
+                            <button id="next-btn-${popupId}" onclick="switchPage('${popupId}', 1)">&gt;</button>
+                          </div>`;
+              content += `</div>`;
+              return content;
+            };
+
+            if (city.name === "Hà Nội") {
+                const details = locationDetails["Hoàn Kiếm"];
+                const popupContent = createPopupContent(details, "HoanKiem");
+                L.marker([21.0285, 105.8542]).bindPopup(popupContent).addTo(detailMarkersLayer);
+            } else if (city.name === "Hải Phòng") {
+                let details = locationDetails["Vĩnh Bảo"];
+                let popupContent = createPopupContent(details, "VinhBao");
+                L.marker([20.689, 106.479]).bindPopup(popupContent).addTo(detailMarkersLayer);
+
+                details = locationDetails["Tiên Lãng"];
+                popupContent = createPopupContent(details, "TienLang");
+                L.marker([20.731, 106.560]).bindPopup(popupContent).addTo(detailMarkersLayer);
+            } else if (city.name === "Thanh Hóa") {
+                let details = locationDetails["Quảng Xương"];
+                let popupContent = createPopupContent(details, "QuangXuong");
+                L.marker([19.681, 105.800]).bindPopup(popupContent).addTo(detailMarkersLayer);
+
+                details = locationDetails["Nga Sơn"];
+                popupContent = createPopupContent(details, "NgaSon");
+                L.marker([19.983, 105.967]).bindPopup(popupContent).addTo(detailMarkersLayer);
+
+                details = locationDetails["Hoằng Hóa"];
+                popupContent = createPopupContent(details, "HoangHoa");
+                L.marker([19.85, 105.86]).bindPopup(popupContent).addTo(detailMarkersLayer);
+            }
+          })
+          .catch(e => console.error("Lỗi tải bản đồ chi tiết:", e));
+
+        closeButton.classList.remove('hidden');
+      });
+      cityMarkers.push(marker);
+    });
+
+    closeButton.addEventListener('click', () => {
+      detailMarkersLayer.clearLayers();
+      if (detailedLayer) map.removeLayer(detailedLayer);
+      detailedLayer = null;
+
+      cityMarkers.forEach(m => m.addTo(map));
+      if (allProvincesLayer) allProvincesLayer.addTo(map);
+      
+      map.fitBounds(allProvincesLayer.getBounds());
+      map.setMaxBounds(allProvincesLayer.getBounds());
+      closeButton.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
