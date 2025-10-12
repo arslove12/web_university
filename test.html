@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiệu ứng mở đầu Thuốc Lào VN</title>
+
+<!-- Thư viện GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow: hidden;
+    background-color: #000;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  /* ====== Intro toàn màn ====== */
+  .intro {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    flex-direction: column;
+  }
+
+  /* ====== Các lớp khói ====== */
+  .smoke {
+    position: absolute;
+    top: 0; left: 0;
+    width: 200%;
+    height: 200%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.3;
+    filter: blur(15px);
+    mix-blend-mode: lighten;
+    pointer-events: none;
+  }
+
+  /* Sử dụng 3 lớp khói khác nhau cho tự nhiên */
+  .smoke1 { background-image: url("smoke1.png") }
+  .smoke2 { background-image: url("smoke2.png"); opacity: 0.25; }
+  .smoke3 { background-image: url("smoke3.png"); opacity: 0.2; }
+
+  /* Logo giữa màn hình */
+  .logo {
+    font-size: 2.8rem;
+    letter-spacing: 4px;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+    text-shadow: 0 0 20px rgba(255,255,255,0.4);
+    z-index: 10;
+  }
+
+  /* Phần nội dung chính */
+  main {
+    opacity: 0;
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  main h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+
+  main p {
+    font-size: 1.1em;
+    color: #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+
+<body>
+  <!-- Intro -->
+  <div class="intro">
+    <div class="smoke smoke1"></div>
+    <div class="smoke smoke2"></div>
+    <div class="smoke smoke3"></div>
+    <div class="logo">Thuốc Lào VN</div>
+  </div>
+
+  <!-- Nội dung chính -->
+  <main>
+    <h1>Chào mừng bạn đến với văn hóa thuốc lào Việt Nam</h1>
+    <p>Khám phá nét đẹp truyền thống, câu chuyện, và lịch sử đằng sau điếu cày Việt.</p>
+  </main>
+
+<script>
+  // ======== Hiệu ứng GSAP ========
+  window.onload = () => {
+    // 1️⃣ Khói bay tự nhiên bằng GSAP + CSS kết hợp
+    gsap.to(".smoke1", {
+      duration: 20,
+      x: 100,
+      y: -80,
+      scale: 1.2,
+      rotation: 5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    gsap.to(".smoke2", {
+      duration: 25,
+      x: -120,
+      y: 100,
+      scale: 1.3,
+      rotation: -5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    gsap.to(".smoke3", {
+      duration: 30,
+      x: 80,
+      y: -60,
+      scale: 1.4,
+      rotation: 8,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    // 2️⃣ Logo hiện ra mượt mà
+    gsap.to(".logo", {
+      duration: 2,
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      ease: "power2.out",
+      delay: 1.5
+    });
+
+    // 3️⃣ Sau vài giây, intro mờ dần và hiện nội dung
+    gsap.to(".intro", {
+      duration: 2,
+      opacity: 0,
+      delay: 5,
+      onComplete: () => {
+        document.querySelector(".intro").style.display = "none";
+      }
+    });
+
+    gsap.to("main", {
+      duration: 2,
+      opacity: 1,
+      delay: 5.5,
+      ease: "power2.out"
+    });
+  };
+</script>
+</body>
+</html>
