@@ -247,3 +247,47 @@ a { /* Make links bolder in light mode */
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
   z-index: 10;
 }
+/* ========== Loading Animation ========== */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  z-index: 9999;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+#loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loader {
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-top: 5px solid #fcd34d; /* màu vàng nâu vintage */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loading-screen p {
+  font-size: 1.2em;
+  font-family: 'Georgia', serif;
+  letter-spacing: 1px;
+  color: #fcd34d;
+}

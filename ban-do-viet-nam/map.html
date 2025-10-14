@@ -61,6 +61,13 @@
 </head>
 
 <body>
+    <!-- 🔥 Loading Animation -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loader"></div>
+      <p>Đang tải bản đồ Việt Nam...</p>
+    </div>
+  </div>
     <header class="hero-bg border-b">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="../index1.html" class="flex items-center space-x-4">
@@ -378,6 +385,25 @@
       map.setMaxBounds(allProvincesLayer.getBounds());
       closeButton.classList.add('hidden');
     });
+    Promise.all(provinceFiles.map(file => fetch(file).then(res => res.json())))
+  .then(allGeoJSONs => {
+    // ... phần code hiện có của bạn để vẽ bản đồ
+
+    allProvincesLayer.addTo(map);
+    map.fitBounds(allProvincesLayer.getBounds());
+    map.setMaxBounds(allProvincesLayer.getBounds());
+
+    // ✅ Khi bản đồ đã load xong → ẩn loading screen
+    const loading = document.getElementById('loading-screen');
+    setTimeout(() => {
+      loading.classList.add('hidden');
+    }, 500); // chờ 0.5 giây cho mượt
+  })
+  .catch(err => {
+    console.error("Lỗi tải bản đồ:", err);
+    alert("Không thể tải bản đồ. Vui lòng thử lại!");
+    document.getElementById('loading-screen').classList.add('hidden');
+  });
   </script>
 </body>
 </html>
