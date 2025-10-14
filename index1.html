@@ -6,17 +6,8 @@
   <title>Lịch sử & Văn hóa Thuốc Lào Việt Nam</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 </head>
 <body class="antialiased font-sans text-gray-700 bg-gray-50 transition-colors duration-300">
-
-    <!-- Intro -->
-  <div class="intro">
-    <video class="smoke-video" src="https://cdn.pixabay.com/video/2016/05/08/3068-165796695_large.mp4" autoplay loop muted playsinline></video>
-    <video class="smoke-video" src="https://www.pexels.com/download/video/9694804/" autoplay loop muted playsinline></video>
-    <div class="logo">Thuốc Lào VN</div>
-  </div>
-  <main>
   <!-- Header -->
   <header class="hero-bg border-b">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -30,7 +21,7 @@
       </a>
       <div class="flex items-center space-x-2">
         <nav class="hidden md:flex space-x-4 text-sm">
-            <a href="index1.html" class="hover:underline">Trang chủ</a>
+            <a href="#" class="hover:underline">Trang chủ</a>
             <a href="lich_su_chi_tiet.html" class="hover:underline">Lịch sử</a>
             <a href="./ban-do-viet-nam/map.html" class="hover:underline">Bản đồ</a>
             <a href="van_hoa.html" class="hover:underline">Văn hóa</a>
@@ -256,7 +247,6 @@
       © 2025 thuoclaovietnam. Bản quyền đã được bảo lưu.
     </div>
   </footer>
-  </main>
 
 </body>
 </html>
@@ -340,34 +330,4 @@
         timelinePath.style.height = `${scrollPercent * 100}%`;
     }
   });
-    window.onload = () => {
-    // 1️⃣ Video khói tự phát, không cần GSAP
-
-    // 2️⃣ Logo hiện ra mượt mà
-    gsap.to(".logo", {
-      duration: 2,
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      ease: "power2.out",
-      delay: 1.5
-    });
-
-    // 3️⃣ Sau vài giây, intro mờ dần và hiện nội dung
-    gsap.to(".intro", {
-      duration: 2,
-      opacity: 0,
-      delay: 5,
-      onComplete: () => {
-        document.querySelector(".intro").style.display = "none";
-      }
-    });
-
-    gsap.to("main", {
-      duration: 2,
-      opacity: 1,
-      delay: 5.5,
-      ease: "power2.out"
-    });
-  };
 </script>
