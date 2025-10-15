@@ -13,16 +13,22 @@
     <!-- Intro -->
   <div class="intro">
     <video class="smoke-video" src="https://cdn.pixabay.com/video/2016/05/08/3068-165796695_large.mp4" autoplay loop muted playsinline></video>
-    <video class="smoke-video" src="https://www.pexels.com/download/video/9694804/" autoplay loop muted playsinline></video>
-    <div class="logo">Thuốc Lào VN</div>
+
+    <div id="logo-container" class="flex items-center">
+      <img class="logo" src="logo.png" >
+      <div id="logo-text-container" class="flex-grow ml-4">
+        <h1 id="logo-text" class="text-white text-2xl md:text-3xl font-extrabold">Thuốc Lào Việt Nam</h1>
+        <p id="logo-subtitle" class="text-white text-xs md:text-sm">Lịch sử — Tập quán — Nghệ thuật</p>
+      </div>
+    </div>
   </div>
-  <main>
+  <main class="pt-20">
   <!-- Header -->
   <header class="hero-bg border-b">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="index1.html" class="flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-full  flex items-center justify-center text-white font-bold">
-          <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAflBMVEXaJR3//wDbMCnZEh7qmhTXAB7ZHR3ZGx3++APYCx721AzspBPbLhz99QTpkxX88gX54Qn32QvmgBflehfzxw7xvRDvtBHiZRnjbBj55AnywQ/wuBDhXhn77QbeRxvrnhTcOhzojBbnhhbkdBjgWBrurxHfThr0zA3fUxrcNxyPL/0XAAAEB0lEQVR4nO3d6XaiQBAFYHva6hYXXDJZjHvc4vu/4CgIsjQK6Bzt6vv9TnKg5LI0VbHRAAAAAAAAAAAAAAAAAAAAAAAAAICL7rM34PXQX3r2JrwatRRL9eyNeDGyKZry2RvxYmggBghPiuoKIboIT9IxOgLhSTtGRyA8GeLk2RvxUqQf0MRHeC5oGNRkiPBcKBHChScmV+earBCeCLXPNWkjPBEtIjhOzuRPXJMfFCVE+7gme4Qn5IkL79kb8xr0KFGTkX725ryERHQQnjMSSajJkX5L1eQN4TktTqdqgqXqRjY6CM+RXmdqskZ46DtTk28cKNnoIDwN/ZWryZfr4fHeczV5d/3+nlq5mrQcD4/+zJVEiE+3w+NNDDWZuB0eQ3RcD4+eGkoixNTl8Hgfxpp8uBwe6hlr0nM4PGpjLIkQG4Yvv5QshbYFNdlSuT9g0XlHrTvNMvx+QU36fqnf79j0DC3N585Hm1j1NohM96eP9mnZqVjr9u2duktbW3WUBMj/ryXxLTtIQt686BR6v/7c0ts6RfnFkcd4J3tvYCi7AP0YaytzE5HdwcMrMujad3JNUdR5cEk6FucmQhvTGkldrY3VuYlob397X0vaexbdzV9FP7f3tpQVi4Mk5C1nD6jIbGnpTYmZovufCj8YnFzTKP/Cr5ovRrmJSDW8oyLDhuU3JQWoWbskTXa5idCu3lNhb8cwNxGd6zYp45u43JSY0eh2DTJGjA+SkOyOK1VkfOB5ck1RhW8wTLZsT65pNDW//svrTdnnJpJpiS3mULOsd7saZ6wecK7R5a89zoxpUPn1FGfGNPItscUcqUlmEOM6R8Y0Sl91Thy58lSJjiPhyQ1iXGdTi0ltFR+NnRjTqBYdJ8JjGMS4zoExDcMgxnUOjGlUjY4D4TEOYgRM0wgB9mMaxkGMo/6Oitqa2I9pGAcxwmVoVXCV5j6mocyDGG/hbpP5SWjKe/nROIgxjhuPzG1NzMc0TIMYycYjY1sT7zENwyBGK7MMTdP8GYfjmEbMy73G2OdmK7TMLcNtOYeHspdbY+MRrTI/1WccHrVL7+usoBs619a04xseL30CnRS+41OUvrXr8A0PpT7+q93Q6bamGdvwqHliN281HslGsq1pzjU8MhGdxc1344oWifBwbS6guMui91smDPQb3+GNmYZHLaM9/FuyG1pfXnsw/UIAGWWhQuNR3Na04Bmec3SqNR7Jw5hxeNQh2LmqjUdRW9OBY3iCf+tfZ/41nMtl+YUAp3/r39Z11laDuVyOXwhw+kaM2vOvp7lcht+mIRetO+ZfvXmL4ZVH+t49H7TyfIavNO79mBmWBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7PYHsv4Bfwktl+d1EYQAAAAASUVORK5CYII=></div>
+        <div class="w-10 h-10 rounded-full  flex items-center justify-center text-white font-bold">
+          <img src="logo.png"></div>
         <div class="flex-grow">
           <h1 class="text-xl md:text-2xl font-extrabold">Thuốc Lào Việt Nam</h1>
           <p class="text-xs md:text-sm text-gray-600">Lịch sử — Tập quán — Nghệ thuật</p>
@@ -341,33 +347,68 @@
     }
   });
     window.onload = () => {
-    // 1️⃣ Video khói tự phát, không cần GSAP
+    const tl = gsap.timeline();
 
-    // 2️⃣ Logo hiện ra mượt mà
-    gsap.to(".logo", {
-      duration: 2,
+    // 1. Logo appears in the center
+    tl.to(".logo", {
+      duration: 1.5,
       opacity: 1,
       scale: 1,
       y: 0,
       ease: "power2.out",
-      delay: 1.5
-    });
-
-    // 3️⃣ Sau vài giây, intro mờ dần và hiện nội dung
-    gsap.to(".intro", {
-      duration: 2,
+      delay: 0
+    })
+    // 2. Logo moves to the left
+    .to(".logo", {
+      duration: 1,
+      x: -80,
+      ease: "power2.inOut"
+    })
+    // 3. Text appears from the left
+    .fromTo("#logo-text", 
+      { opacity: 0, x: -50 }, 
+      { duration: 1, opacity: 1, x: 0, ease: "power2.out" }, 
+      "-=0.8"
+    )
+    // 4. Subtitle appears
+    .to("#logo-subtitle", {
+      duration: 1,
+      opacity: 1,
+      ease: "power2.out"
+    }, "-=0.5")
+    // 5. Fly to corner
+    .to("#logo-container", {
+      duration: 1.5,
+      top: "24px",
+      left: "48px",
+      scale: 0.4,
+      ease: "expo.inOut",
+      delay: 1
+    })
+    // 6. Fade out logo container
+    .to("#logo-container", {
+      duration: 0.5,
+      opacity: 0
+    })
+    // 7. Fade out intro and show main content
+    .to(".intro", {
+      duration: 1.5,
       opacity: 0,
-      delay: 5,
       onComplete: () => {
         document.querySelector(".intro").style.display = "none";
+        fetch('index1.html')
+          .then(response => response.text())
+          .then(data => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            document.querySelector('main').innerHTML = doc.querySelector('body').innerHTML;
+            gsap.to("main", {
+              duration: 1,
+              opacity: 1,
+              ease: "power2.out"
+            });
+          });
       }
-    });
-
-    gsap.to("main", {
-      duration: 2,
-      opacity: 1,
-      delay: 5.5,
-      ease: "power2.out"
-    });
+    }, "-=1.5"); // Start fading out the intro as the logo starts moving
   };
 </script>
