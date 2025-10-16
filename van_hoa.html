@@ -52,7 +52,7 @@
   </div>
 
   <!-- Main Content -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 opacity-0 transition-opacity duration-500">
     <header class="mb-12 text-center">
       <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Văn Hóa & Tập Quán</h1>
       <p class="text-lg text-gray-600">Khám phá các bài viết chi tiết về lịch sử và văn hóa thuốc lào Việt Nam.</p>
@@ -286,6 +286,15 @@
 
       // Initial load
       showPage(currentPage);
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const mainContent = document.querySelector('main');
+      if (mainContent) {
+        mainContent.classList.remove('opacity-0');
+        mainContent.classList.add('opacity-100');
+      }
     });
   </script>
 </body>

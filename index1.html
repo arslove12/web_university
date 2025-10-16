@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased font-sans text-gray-700 transition-colors duration-300 pt-20">
@@ -33,7 +33,7 @@
         </nav>
           <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 flex items-center justify-center">
             <svg id="sun-icon" class="w-6 h-6 text-yellow-500 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <svg id="moon-icon" class="w-6 h-6 text-white hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            <svg id="moon-icon" class="w-6 h-6 text-amber-900 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
           </button>
         <div class="md:hidden">
             <button id="mobile-menu-button" class="p-2 rounded-md text-gray-800 hover:bg-gray-200"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
@@ -44,11 +44,11 @@
   </header>
 
   <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-64 bg-white z-50 p-6 space-y-4">
+    <div id="mobile-menu" class="hidden fixed inset-y-0 right-0 w-64 bg-white z-50 p-6 space-y-4">
         <a href="#" class="block hover:underline">Trang chủ</a>
         <a href="lich_su_chi_tiet.html" class="block hover:underline">Lịch sử văn hóa thuốc lào</a>
         <a href="van_hoa.html" class="block hover:underline">Văn hóa</a>
-        <a href="#" class="block hover:underline">Bản đồ vùng</a>
+        <a href="map.html" class="block hover:underline">Bản đồ vùng</a>
         <a href="#" class="block hover:underline">Đánh giá</a>
     </div>
 
@@ -60,8 +60,8 @@
         <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="absolute inset-0 w-full h-full object-cover filter blur-sm">
         <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div class="max-w-2xl text-white text-center px-6">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">LỊCH SỬ VÀ VĂN HÓA</h2>
-                <p class="text-lg">Một phần đời sống nông thôn Việt</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-xl">LỊCH SỬ VÀ VĂN HÓA</h2>
+                <p class="text-lg drop-shadow-xl">Một phần đời sống nông thôn Việt</p>
             </div>
         </div>
     </div>
@@ -70,8 +70,8 @@
     <div class="md:hidden">
         <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="w-full h-auto object-cover">
         <div class="bg-white p-6 text-center">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">LỊCH SỬ VÀ VĂN HÓA</h2>
-            <p class="text-base mb-6 text-gray-700">Một phần đời sống nông thôn Việt</p>
+            <h2 class="text-2xl font-bold mb-4 text-gray-800 drop-shadow-xl">LỊCH SỬ VÀ VĂN HÓA</h2>
+            <p class="text-base mb-6 text-gray-700 drop-shadow-xl">Một phần đời sống nông thôn Việt</p>
         </div>
     </div>
 </section>
@@ -150,28 +150,113 @@
             </div>
         </div>
     </div>
-  </section>
-
-  <!-- Culture -->
-  <section id="van-hoa" class="max-w-6xl mx-auto px-6 py-8">
-    <h3 class="text-2xl font-bold mb-4">Văn hoá & Tập quán</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-white rounded-xl p-5 card-shadow scroll-animate">
-        <h4 class="font-semibold mb-2">Điếu cày & Dụng cụ</h4>
-        <p class="text-gray-600 text-sm">Điếu cày thường làm bằng tre, đồng hoặc gốm; ống nước giữ vai trò trung tâm khi tiếp khách. Mỗi vùng có kiểu dáng và tên gọi khác nhau.</p>
-      </div>
-      <div class="bg-white rounded-xl p-5 card-shadow scroll-animate" style="transition-delay: 0.2s;">
-        <h4 class="font-semibold mb-2">Nghi thức tiếp khách</h4>
-        <p class="text-gray-600 text-sm">Mời điếu, rót nước, hút và chuyển tay là các nghi thức biểu thị thân mật và tôn trọng trong cộng đồng.</p>
-      </div>
-      <div class="bg-white rounded-xl p-5 card-shadow scroll-animate" style="transition-delay: 0.4s;">
-        <h4 class="font-semibold mb-2">Ngôn ngữ & Ca dao</h4>
-        <p class="text-gray-600 text-sm">Thuốc lào xuất hiện trong ca dao, tục ngữ, truyện kể — là một chất xúc tác cho câu chuyện và ký ức chung.</p>
-      </div>
+    </section>
+  
+    <!-- Culture -->
+  <section id="van-hoa" class="max-w-6xl mx-auto px-6 py-2">
+    <div class="flex justify-between items-center">
+      <a>
+        <h3 class="text-2xl font-bold">Văn hoá & Tập quán</h3>
+      </a>
+      <a href="van_hoa.html" id="view-all-button" class="hero-button inline-block px-4 py-2 rounded-lg shadow hover:bg-gray-200 dark:hover:bg-amber-700 transition-colors duration-200">View All</a>
     </div>
   </section>
-
-  <!-- Gallery -->
+    <main id="van-hoa-section" class="relative max-w-6xl mx-auto py-2 sm:py-3 min-h-48">
+      <div class="relative w-full px-4 sm:px-6">
+            <div id="pagination-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 grid-auto-rows-fr">
+  
+                    <!-- Card 1 -->
+                    <a href="doc_bao.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phan1.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Thuốc Lào Thế Kỷ 17-18: Hành Trình Từ Giống Cây Ngoại Lai Đến Vật Phẩm Tiến Vua</h3>
+                        <p class="text-gray-600 text-sm">Khám phá hành trình của cây thuốc lào từ khi du nhập vào Việt Nam cho đến khi trở thành vật phẩm tiến vua.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 2 -->
+                    <a href="bai_viet_2.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phan2.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Sự Phổ Cập Toàn Xã Hội: Một Nền "Văn Hóa Điếu Cày"</h3>
+                        <p class="text-gray-600 text-sm">Tìm hiểu về vai trò của thuốc lào trong đời sống xã hội và văn hóa làng xã Việt Nam thế kỷ 19.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 3 -->
+                    <a href="bai_viet_3.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phan3.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Thuốc Lào Thời Kháng Chiến (1945-1975): Từ Điếu Cày Thôn Dã Đến Biểu Tượng Bất Khuất Nơi Chiến Hào</h3>
+                        <p class="text-gray-600 text-sm">Hành trình của điếu cày từ thôn dã đến biểu tượng bất khuất nơi chiến hào trong 30 năm kháng chiến.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 4 -->
+                    <a href="bai_viet_4.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phan4.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Thuốc Lào Thời Đương Đại (1975-Nay): Từ Nét Sinh Hoạt Phổ Quát Đến Di Sản Văn Hóa</h3>
+                        <p class="text-gray-600 text-sm">Sự chuyển mình của thuốc lào trong xã hội hiện đại, từ một thói quen phổ biến đến một di sản văn hóa.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 5 -->
+                    <a href="bai_viet_5.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phann1.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Làng nghề thuốc lào</h3>
+                        <p class="text-gray-600 text-sm">Các làng nghề thuốc lào truyền thống là nơi lưu giữ những giá trị văn hóa đặc sắc.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 6 -->
+                    <a href="bai_viet_6.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phann2.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Thuốc lào và văn học nghệ thuật</h3>
+                        <p class="text-gray-600 text-sm">Thuốc lào không chỉ xuất hiện trong đời sống hàng ngày mà còn là nguồn cảm hứng cho nhiều tác phẩm văn học nghệ thuật.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 7 -->
+                    <a href="bai_viet_7.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phann3.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Tác động của thuốc lào đến sức khỏe</h3>
+                        <p class="text-gray-600 text-sm">Bên cạnh những giá trị văn hóa, thuốc lào cũng có những tác động tiêu cực đến sức khỏe người sử dụng.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 8 -->
+                    <a href="bai_viet_8.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phann4.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Thuốc lào trong đời sống hiện đại</h3>
+                        <p class="text-gray-600 text-sm">Trong bối cảnh xã hội hiện đại, thuốc lào vẫn giữ một vị trí nhất định trong đời sống văn hóa của người Việt.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 9 -->
+                    <a href="bai_viet_9.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="phannn4.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Bảo tồn và phát huy giá trị văn hóa thuốc lào</h3>
+                        <p class="text-gray-600 text-sm">Để bảo tồn và phát huy giá trị văn hóa của thuốc lào, cần có sự chung tay của cộng đồng và các cơ quan chức năng.</p>
+                      </div>
+                    </a>
+              
+                    <!-- Card 10 -->
+                    <a href="bai_viet_10.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                      <img class="w-full h-48 object-cover" src="smoke1.png" alt="">
+                      <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Thuốc lào và du lịch văn hóa</h3>
+                        <p class="text-gray-600 text-sm">Thuốc lào không chỉ là một sản phẩm nông nghiệp mà còn là một phần của di sản văn hóa Việt Nam, có tiềm năng phát triển du lịch.</p>
+                      </div>
+                    </a>      </div>
+      </div>
+    </main>  
+    <!-- Gallery -->
 
          
 
@@ -210,13 +295,13 @@
 
   // Mobile menu toggle logic
   function openMenu() {
-    mobileMenu.classList.add('open');
+    mobileMenu.classList.remove('hidden');
     mobileMenuButton.classList.add('hidden');
     mobileMenuCloseButton.classList.remove('hidden');
   }
 
   function closeMenu() {
-    mobileMenu.classList.remove('open');
+    mobileMenu.classList.add('hidden');
     mobileMenuButton.classList.remove('hidden');
     mobileMenuCloseButton.classList.add('hidden');
   }
@@ -257,6 +342,107 @@
         timelinePath.style.height = `${scrollPercent * 100}%`;
     }
   });
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Pagination Logic
+      const itemsPerPage = 3;
+      let currentPage = 1;
+      const paginationContainer = document.getElementById('pagination-container');
+      const cards = Array.from(paginationContainer.children); // Get all card elements
+      const pageNumbersContainer = document.getElementById('page-numbers');
+
+      let currentStartIndex = 0; // New global variable to track the start index
+
+      function showPage(startIndex) {
+        currentStartIndex = startIndex; // Update global start index
+        const endIndex = startIndex + itemsPerPage;
+
+        cards.forEach((card, index) => {
+          if (index >= startIndex && index < endIndex) {
+            card.style.display = 'block'; // Show card
+          } else {
+            card.style.display = 'none'; // Hide card
+          }
+        });
+
+        displayPageNumbers(); // Call to update button visibility
+      }
+
+      function displayPageNumbers() {
+        const mainSection = document.getElementById('van-hoa-section');
+        if (!mainSection) return;
+
+        // Get the new wrapper div for positioning buttons
+        const buttonWrapper = mainSection.querySelector('.relative.w-full');
+        if (!buttonWrapper) return;
+
+        // Remove any existing navigation buttons to prevent duplicates
+        const existingPrevButton = buttonWrapper.querySelector('.prev-nav-button');
+        if (existingPrevButton) existingPrevButton.remove();
+        const existingNextButton = buttonWrapper.querySelector('.next-nav-button');
+        if (existingNextButton) existingNextButton.remove();
+
+        if (cards.length <= itemsPerPage) {
+          return;
+        }
+
+        // Previous button
+        if (currentStartIndex > 0) {
+          const prevButton = document.createElement('button');
+          prevButton.classList.add(
+            'prev-nav-button',
+            'w-10', 'h-10',
+            'flex', 'items-center', 'justify-center',
+            'rounded-full',
+            'bg-amber-700', 'dark:bg-amber-900', // Changed to brown
+            'hover:bg-amber-800', 'dark:hover:bg-amber-800', // Changed hover to darker brown
+            'transition-colors', 'duration-200',
+            'absolute', 'left-0', 'top-1/2', '-translate-y-1/2', 'z-10'
+          );
+          prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+          prevButton.addEventListener('click', () => {
+            showPage(currentStartIndex - 1);
+          });
+          buttonWrapper.appendChild(prevButton);
+        }
+
+        // Next button
+        if (currentStartIndex + itemsPerPage < cards.length) {
+          const nextButton = document.createElement('button');
+          nextButton.classList.add(
+            'next-nav-button',
+            'w-10', 'h-10',
+            'flex', 'items-center', 'justify-center',
+            'rounded-full',
+            'bg-amber-700', 'dark:bg-amber-900', // Changed to brown
+            'hover:bg-amber-800', 'dark:hover:bg-amber-800', // Changed hover to darker brown
+            'transition-colors', 'duration-200',
+            'absolute', 'right-0', 'top-1/2', '-translate-y-1/2', 'z-10'
+          );
+          nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+          nextButton.addEventListener('click', () => {
+            showPage(currentStartIndex + 1);
+          });
+          buttonWrapper.appendChild(nextButton);
+        }
+      }
+
+      // Initial load
+      showPage(currentStartIndex);
+
+
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
 </script> 
       
     <!-- Footer -->
@@ -282,8 +468,9 @@
         <h3 class="text-xl font-bold text-gray-800 mb-4">Liên kết nhanh</h3>
         <ul class="space-y-2">
           <li><a href="index1.html" class="hover:underline">Trang chủ</a></li>
-          <li><a href="lich_su_chi_tiet.html" class="hover:underline">Lịch sử văn hóa thuốc lào</a></li>
-         <li><a href="#" class="hover:underline">Đánh giá</a></li>
+          <li><a href="lich_su_chi_tiet.html" class="hover:underline">Lịch sử</a></li>
+          <li><a href="van_hoa.html" class="hover:underline">Văn hóa</a></li>
+          <li><a href="#" class="hover:underline">Đánh giá</a></li>
         </ul>
       </div>
     </div>
