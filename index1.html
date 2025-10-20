@@ -10,6 +10,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Initial state for the animation */
+    .timeline-item, .scroll-animate {
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+    }
+    .timeline-item.is-visible, .scroll-animate.is-visible {
+        opacity: 1;
+    }
+
+    .timeline-item .background-text {
+        transform: scale(0.8);
+        transition: transform 1.2s ease-out;
+    }
+    .timeline-item.is-visible .background-text {
+        transform: scale(1);
+    }
+
+    .timeline-item .foreground-card, .scroll-animate {
+        transform: translateY(50px);
+        transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    }
+    .timeline-item.is-visible .foreground-card, .scroll-animate.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+    }
+  </style>
 </head>
 <body class="antialiased font-sans text-gray-700 transition-colors duration-300 pt-20">
   <!-- Header -->
@@ -60,8 +87,9 @@
         <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="absolute inset-0 w-full h-full object-cover filter blur-sm">
         <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div class="max-w-2xl text-white text-center px-6">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-xl">LỊCH SỬ VÀ VĂN HÓA</h2>
-                <p class="text-lg drop-shadow-xl">Một phần đời sống nông thôn Việt</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-2xl">LỊCH SỬ VÀ VĂN HÓA</h2>
+                <div class="w-16 h-1 bg-white mx-auto my-4"></div>
+                <p class="text-lg drop-shadow-2xl">Một phần đời sống nông thôn Việt</p>
             </div>
         </div>
     </div>
@@ -70,8 +98,9 @@
     <div class="md:hidden">
         <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="w-full h-auto object-cover">
         <div class="bg-white p-6 text-center">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800 drop-shadow-xl">LỊCH SỬ VÀ VĂN HÓA</h2>
-            <p class="text-base mb-6 text-gray-700 drop-shadow-xl">Một phần đời sống nông thôn Việt</p>
+            <h2 class="text-2xl font-bold mb-4 text-gray-800 drop-shadow-2xl">LỊCH SỬ VÀ VĂN HÓA</h2>
+            <div class="w-16 h-1 bg-gray-800 mx-auto my-4"></div>
+            <p class="text-base mb-6 text-gray-700 drop-shadow-2xl">Một phần đời sống nông thôn Việt</p>
         </div>
     </div>
 </section>
@@ -86,71 +115,52 @@
   </section>
 
   <!-- Tree Timeline -->
-  <section id="dong-thoi" class="max-w-6xl mx-auto px-6 py-8">
+  <section id="dong-thoi" class="max-w-full mx-auto px-6 py-8">
     <h3 class="text-3xl font-bold mb-12 text-center">Dòng thời gian tóm tắt</h3>
-    <div class="relative">
-        <!-- The timeline line -->
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full">
-            <div class="timeline-line" style="width: 4px;"></div>
-        </div>
-        <div class="space-y-16">
-            <!-- Item 1 -->
-            <div class="timeline-item left flex items-center">
-                <div class="flex-1 text-right pr-8">
-                    <div class="timeline-card bg-white rounded-xl p-6 card-shadow">
-                        <div class="text-sm text-amber-700 font-semibold">Trước thế kỷ 20</div>
-                        <h4 class="text-xl font-bold my-2">Nguồn gốc và truyền bá</h4>
-                        <p class="text-gray-600">Việc trồng thuốc lá và sử dụng ống nước có thể xuất hiện sớm. Nhiều tư liệu dân gian cho biết thói quen này phổ biến ở đồng bằng Bắc Bộ và miền Trung.</p>
-                    </div>
-                </div>
-                <div class="w-auto px-4 z-10">
-                    <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">1</div>
-                </div>
-                <div class="flex-1 pl-8">
-                    <div class="timeline-card bg-white rounded-xl p-4 card-shadow">
-                        <p class="text-sm text-gray-700">Thuốc được chế biến thủ công, thường là lá băm ẩm, dùng kèm điếu cày làm từ tre hoặc gốm.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Item 2 -->
-            <div class="timeline-item right flex items-center flex-row-reverse">
-                <div class="flex-1 text-left pl-8">
-                   <div class="timeline-card bg-white rounded-xl p-6 card-shadow">
-                        <div class="text-sm text-amber-700 font-semibold">Thế kỷ 20</div>
-                        <h4 class="text-xl font-bold my-2">Phổ biến và thay đổi</h4>
-                        <p class="text-gray-600">Giai đoạn thực dân, thương mại làm thay đổi các đường vận chuyển và loại dụng cụ. Hình ảnh thuốc lào xuất hiện trong nhiều ký ức hành trình.</p>
-                    </div>
-                </div>
-                <div class="w-auto px-4 z-10">
-                    <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">2</div>
-                </div>
-                <div class="flex-1 pr-8">
-                    <div class="timeline-card bg-white rounded-xl p-4 card-shadow">
-                        <p class="text-sm text-gray-700">Thuốc lào, với vai trò là một sản phẩm thương mại quan trọng, đã trở thành một hình ảnh quen thuộc trong ký ức của những người tham gia vào các tuyến hành trình thương mại này, từ người trồng trọt, người buôn bán đến người vận chuyển. </p>
-                    </div>
-                </div>
-            </div>
-            <!-- Item 3 -->
-            <div class="timeline-item left flex items-center">
-                <div class="flex-1 text-right pr-8">
-                    <div class="timeline-card bg-white rounded-xl p-6 card-shadow">
-                        <div class="text-sm text-amber-700 font-semibold">Hậu chiến & Hiện đại</div>
-                        <h4 class="text-xl font-bold my-2">Vị trí trong đời sống đương đại</h4>
-                        <p class="text-gray-600">Dù giảm dần ở đô thị, thuốc lào vẫn giữ vai trò mạnh mẽ ở vùng nông thôn như dấu ấn văn hóa và ký ức.</p>
-                    </div>
-                </div>
-                <div class="w-auto px-4 z-10">
-                    <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center timeline-dot">3</div>
-                </div>
-                <div class="flex-1 pl-8">
-                     <div class="timeline-card bg-white rounded-xl p-4 card-shadow">
-                        <p class="text-sm text-gray-700">Các nghiên cứu dân tộc học, ảnh hưởng truyền thông và luật y tế đã làm thay đổi cách nhìn và thói quen sử dụng.</p>
-                    </div>
-                </div>
+    <div class="space-y-8">
+
+        <!-- Item 1 -->
+        <div class="timeline-item relative overflow-hidden py-8">
+            <div class="background-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12rem] font-bold text-gray-200 opacity-50" style="filter: blur(8px);">17-18</div>
+            <div class="foreground-card relative z-10 bg-white/80 backdrop-blur-sm rounded-xl p-6 card-shadow w-full md:w-11/12 mx-auto">
+                <div class="text-sm text-amber-700 font-semibold">Thế Kỷ 17-18</div>
+                <h4 class="text-2xl font-bold my-2"><span class="text-amber-600">1.</span> Hành Trình Từ Giống Cây Ngoại Lai Đến Vật Phẩm Tiến Vua</h4>
+                <p class="text-lg text-gray-600">Từ một giống cây ngoại lai, thuốc lào đã bén rễ vào đời sống văn hóa, xã hội và trở thành một sản vật dâng lên vua chúa. Trong bối cảnh Đại Việt biến động, Nicotiana rustica du nhập và nhanh chóng phổ biến.</p>
             </div>
         </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item relative overflow-hidden py-8">
+            <div class="background-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12rem] font-bold text-gray-200 opacity-50" style="filter: blur(8px);">19</div>
+            <div class="foreground-card relative z-10 bg-white/80 backdrop-blur-sm rounded-xl p-6 card-shadow w-full md:w-11/12 mx-auto">
+                <div class="text-sm text-amber-700 font-semibold">Thế Kỷ 19</div>
+                <h4 class="text-2xl font-bold my-2"><span class="text-amber-600">2.</span> Một Nền "Văn Hóa Điếu Cày"</h4>
+                <p class="text-lg text-gray-600">Văn hóa hút thuốc lào lan rộng, trở thành một phần không thể thiếu trong đời sống hàng ngày của người đàn ông Việt Nam. Từ làng xã Bắc Bộ, thói quen hút thuốc lào lan rộng và định hình một "nền văn hóa điếu cày" vững chắc.</p>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item relative overflow-hidden py-8">
+            <div class="background-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] font-bold text-gray-200 opacity-50" style="filter: blur(8px);">45-75</div>
+            <div class="foreground-card relative z-10 bg-white/80 backdrop-blur-sm rounded-xl p-6 card-shadow w-full md:w-11/12 mx-auto">
+                <div class="text-sm text-amber-700 font-semibold">Thời Kháng Chiến (1945-1975)</div>
+                <h4 class="text-2xl font-bold my-2"><span class="text-amber-600">3.</span> Biểu Tượng Bất Khuất Nơi Chiến Hào</h4>
+                <p class="text-lg text-gray-600">Chiếc điếu cày và làn khói thuốc lào trở thành người bạn đồng hành, biểu tượng cho tinh thần và ý chí kiên cường của người lính. Vượt lên trên một vật dụng dân dã, thuốc lào trở thành hình ảnh đại diện cho tinh thần giản dị của cách mạng.</p>
+            </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="timeline-item relative overflow-hidden py-8">
+            <div class="background-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] font-bold text-gray-200 opacity-50" style="filter: blur(8px);">75-Nay</div>
+            <div class="foreground-card relative z-10 bg-white/80 backdrop-blur-sm rounded-xl p-6 card-shadow w-full md:w-11/12 mx-auto">
+                <div class="text-sm text-amber-700 font-semibold">Thời Đương Đại (1975-Nay)</div>
+                <h4 class="text-2xl font-bold my-2"><span class="text-amber-600">4.</span> Từ Nét Sinh Hoạt Phổ Quát Đến Di Sản Văn Hóa</h4>
+                <p class="text-lg text-gray-600">Đối mặt với những biến đổi của kinh tế thị trường, thuốc lào chuyển mình từ một thói quen phổ biến thành một di sản văn hóa. Thuốc lào tìm cho mình một vị trí riêng trong dòng chảy của xã hội hiện đại, giữ gìn bản sắc văn hóa dân tộc.</p>
+            </div>
+        </div>
+
     </div>
-    </section>
+  </section>
   
     <!-- Culture -->
   <section id="van-hoa" class="max-w-6xl mx-auto px-6 py-2">
@@ -166,7 +176,7 @@
             <div id="pagination-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 grid-auto-rows-fr">
   
                     <!-- Card 1 -->
-                    <a href="doc_bao.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="doc_bao.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phan1.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc Lào Thế Kỷ 17-18: Hành Trình Từ Giống Cây Ngoại Lai Đến Vật Phẩm Tiến Vua</h3>
@@ -175,7 +185,7 @@
                     </a>
               
                     <!-- Card 2 -->
-                    <a href="bai_viet_2.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_2.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phan2.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Sự Phổ Cập Toàn Xã Hội: Một Nền "Văn Hóa Điếu Cày"</h3>
@@ -184,7 +194,7 @@
                     </a>
               
                     <!-- Card 3 -->
-                    <a href="bai_viet_3.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_3.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phan3.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc Lào Thời Kháng Chiến (1945-1975): Từ Điếu Cày Thôn Dã Đến Biểu Tượng Bất Khuất Nơi Chiến Hào</h3>
@@ -193,7 +203,7 @@
                     </a>
               
                     <!-- Card 4 -->
-                    <a href="bai_viet_4.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_4.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phan4.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc Lào Thời Đương Đại (1975-Nay): Từ Nét Sinh Hoạt Phổ Quát Đến Di Sản Văn Hóa</h3>
@@ -202,7 +212,7 @@
                     </a>
               
                     <!-- Card 5 -->
-                    <a href="bai_viet_5.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_5.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phann1.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Làng nghề thuốc lào</h3>
@@ -211,7 +221,7 @@
                     </a>
               
                     <!-- Card 6 -->
-                    <a href="bai_viet_6.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_6.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phann2.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc lào và văn học nghệ thuật</h3>
@@ -220,7 +230,7 @@
                     </a>
               
                     <!-- Card 7 -->
-                    <a href="bai_viet_7.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_7.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phann3.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Tác động của thuốc lào đến sức khỏe</h3>
@@ -229,7 +239,7 @@
                     </a>
               
                     <!-- Card 8 -->
-                    <a href="bai_viet_8.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_8.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phann4.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc lào trong đời sống hiện đại</h3>
@@ -238,7 +248,7 @@
                     </a>
               
                     <!-- Card 9 -->
-                    <a href="bai_viet_9.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_9.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="phannn4.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Bảo tồn và phát huy giá trị văn hóa thuốc lào</h3>
@@ -247,7 +257,7 @@
                     </a>
               
                     <!-- Card 10 -->
-                    <a href="bai_viet_10.html" class="block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                    <a href="bai_viet_10.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                       <img class="w-full h-48 object-cover" src="smoke1.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc lào và du lịch văn hóa</h3>
@@ -321,7 +331,7 @@
       }
     });
   }, {
-    threshold: 0.5
+    threshold: 0.2
   });
 
   animatedItems.forEach(item => {
@@ -478,4 +488,3 @@
       © 2025 thuoclaovietnam. Bản quyền đã được bảo lưu.
     </div>
   </footer>
-    
