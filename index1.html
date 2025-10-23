@@ -39,6 +39,7 @@
   </style>
 </head>
 <body class="antialiased font-sans text-gray-700 transition-colors duration-300 pt-20">
+
   <!-- Header -->
   <header class="hero-bg fixed top-0 left-0 right-0 z-20 shadow-xl">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -79,31 +80,19 @@
         <a href="#" class="block hover:underline">Đánh giá</a>
     </div>
 
-
-  <!-- Hero Section -->
-<section>
-    <!-- Desktop Image (Overlay with fixed height) -->
-    <div class="hidden md:block relative h-96">
-        <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="absolute inset-0 w-full h-full object-cover filter blur-sm">
-        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div class="max-w-2xl text-white text-center px-6">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-2xl">LỊCH SỬ VÀ VĂN HÓA</h2>
-                <div class="w-16 h-1 bg-white mx-auto my-4"></div>
-                <p class="text-lg drop-shadow-2xl">Một phần đời sống nông thôn Việt</p>
-            </div>
-        </div>
+  <!-- Gallery -->
+  <section id="gallery" class="w-full">
+    <div class="flex justify-center">
+      <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="Image 1" class="w-full h-96 object-cover">
     </div>
-
-    <!-- Mobile Image (Stacked) -->
-    <div class="md:hidden">
-        <img src="z7053952613308_b5bf2250717e29d4872187f83c8f1740.jpg" alt="thuoc lao" class="w-full h-auto object-cover">
-        <div class="bg-white p-6 text-center">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800 drop-shadow-2xl">LỊCH SỬ VÀ VĂN HÓA</h2>
-            <div class="w-16 h-1 bg-gray-800 mx-auto my-4"></div>
-            <p class="text-base mb-6 text-gray-700 drop-shadow-2xl">Một phần đời sống nông thôn Việt</p>
-        </div>
+    <div class="grid grid-cols-2">
+      <img src="https://hongkytech.wordpress.com/wp-content/uploads/2018/07/27752100_2297144763845607_3931020253223869688_n.jpg" alt="Image 2" class="w-full h-96 object-cover">
+      <img src="smoke3.png" alt="Image 3" class="w-full h-96 object-cover">
     </div>
-</section>
+  </section>
+
+
+
 
   <!-- Intro -->
   <section id="gioi-thieu" class="max-w-6xl mx-auto px-6 py-6 scroll-animate">
@@ -268,10 +257,6 @@
                     </a>      </div>
       </div>
     </main>  
-    <!-- Gallery -->
-
-         
-
 </body>
 </html>
 <script>
