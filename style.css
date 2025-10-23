@@ -194,7 +194,12 @@ a { /* Make links bolder in light mode */
 }
 
 .dark .border-amber-600 {
-  border-color: #3e2723; /* Match border to background in dark mode */
+  border-color: transparent; /* Match border to background in dark mode */
+}
+
+.dark .no-background {
+  background-color: var(--color-bg-primary) !important;
+  box-shadow: none !important;
 }
 
 /* Image hover effect for gallery items */
