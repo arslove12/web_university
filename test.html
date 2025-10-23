@@ -6,9 +6,6 @@
   <title>Lịch sử & Văn hóa Thuốc Lào Việt Nam</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 </head>
@@ -17,16 +14,13 @@
     <!-- Intro -->
   <div class="intro">
     <video class="smoke-video" src="https://cdn.pixabay.com/video/2016/05/08/3068-165796695_large.mp4" autoplay loop muted playsinline></video>
-
-    <div id="logo-container" class="flex items-center">
-      <img class="logo" src="logo.png" >
-      <div id="logo-text-container" class="flex-grow ml-4">
-        <h1 id="logo-text" class="text-white text-2xl md:text-3xl font-extrabold">Thuốc Lào Việt Nam</h1>
-        <p id="logo-subtitle" class="text-white text-xs md:text-sm">Lịch sử — Tập quán — Nghệ thuật</p>
-      </div>
+    <video class="smoke-video" src="https://www.pexels.com/download/video/9694804/" autoplay loop muted playsinline></video>
+    <div class="logo">
+      <img src="logo.png" alt="Logo" class="intro-logo-img">
+      <span class="intro-logo-text">Thuốc Lào Việt Nam</span>
     </div>
   </div>
-  <main class="pt-20">
+  <main>
   <!-- Header -->
   <header class="hero-bg fixed top-0 left-0 right-0 z-20 shadow-xl">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -149,7 +143,7 @@
       <a href="van_hoa.html" id="view-all-button" class="hero-button inline-block px-4 py-2 rounded-lg shadow hover:bg-gray-200 dark:hover:bg-amber-700 transition-colors duration-200">View All</a>
     </div>
   </section>
-    <section id="van-hoa-section" class="relative max-w-6xl mx-auto py-2 sm:py-3 min-h-48">
+    <section   id="van-hoa-section" class="relative max-w-6xl mx-auto py-2 sm:py-3 min-h-48">
       <div class="relative w-full px-4 sm:px-6">
             <div id="pagination-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 grid-auto-rows-fr">
   
@@ -191,7 +185,7 @@
               
                     <!-- Card 5 -->
                     <a href="bai_viet_5.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                      <img class="w-full h-48 object-cover" src="baiviet5.png" alt="">
+                      <img class="w-full h-48 object-cover" src="phann1.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Làng nghề thuốc lào</h3>
                         <p class="text-gray-600 text-sm">Các làng nghề thuốc lào truyền thống là nơi lưu giữ những giá trị văn hóa đặc sắc.</p>
@@ -200,7 +194,7 @@
               
                     <!-- Card 6 -->
                     <a href="bai_viet_6.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                      <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1531973968078-9bb02785f13d?auto=format&fit=crop&w=800&q=60" alt="">
+                      <img class="w-full h-48 object-cover" src="phann2.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc lào và văn học nghệ thuật</h3>
                         <p class="text-gray-600 text-sm">Thuốc lào không chỉ xuất hiện trong đời sống hàng ngày mà còn là nguồn cảm hứng cho nhiều tác phẩm văn học nghệ thuật.</p>
@@ -209,7 +203,7 @@
               
                     <!-- Card 7 -->
                     <a href="bai_viet_7.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                      <img class="w-full h-48 object-cover" src="baiviet7.png" alt="">
+                      <img class="w-full h-48 object-cover" src="phann3.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Tác động của thuốc lào đến sức khỏe</h3>
                         <p class="text-gray-600 text-sm">Bên cạnh những giá trị văn hóa, thuốc lào cũng có những tác động tiêu cực đến sức khỏe người sử dụng.</p>
@@ -218,7 +212,7 @@
               
                     <!-- Card 8 -->
                     <a href="bai_viet_8.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                      <img class="w-full h-48 object-cover" src="baiviet8.jpg" alt="">
+                      <img class="w-full h-48 object-cover" src="phann4.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc lào trong đời sống hiện đại</h3>
                         <p class="text-gray-600 text-sm">Trong bối cảnh xã hội hiện đại, thuốc lào vẫn giữ một vị trí nhất định trong đời sống văn hóa của người Việt.</p>
@@ -227,7 +221,7 @@
               
                     <!-- Card 9 -->
                     <a href="bai_viet_9.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                      <img class="w-full h-48 object-cover" src="baiviet9.jpg" alt="">
+                      <img class="w-full h-48 object-cover" src="phannn4.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Bảo tồn và phát huy giá trị văn hóa thuốc lào</h3>
                         <p class="text-gray-600 text-sm">Để bảo tồn và phát huy giá trị văn hóa của thuốc lào, cần có sự chung tay của cộng đồng và các cơ quan chức năng.</p>
@@ -236,14 +230,15 @@
               
                     <!-- Card 10 -->
                     <a href="bai_viet_10.html" class="scroll-animate block bg-white rounded-xl overflow-hidden card-shadow transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
-                      <img class="w-full h-48 object-cover" src="baiviet10.png" alt="">
+                      <img class="w-full h-48 object-cover" src="smoke1.png" alt="">
                       <div class="p-6 flex-grow">
                         <h3 class="text-xl font-bold mb-2">Thuốc lào và du lịch văn hóa</h3>
                         <p class="text-gray-600 text-sm">Thuốc lào không chỉ là một sản phẩm nông nghiệp mà còn là một phần của di sản văn hóa Việt Nam, có tiềm năng phát triển du lịch.</p>
                       </div>
                     </a>      </div>
       </div>
-    </section>
+    </section>  
+  </main>
 
 </body>
 </html>
@@ -314,7 +309,7 @@
   });
 
   // Animate timeline path
- window.addEventListener('scroll', () => {
+window.addEventListener('scroll', () => {
       if (!timelinePathContainer) return;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const timelineTop = timelinePathContainer.offsetTop;
@@ -333,149 +328,129 @@
     document.addEventListener('DOMContentLoaded', () => {
       // Pagination Logic
       const itemsPerPage = 3;
+      let currentPage = 1;
       const paginationContainer = document.getElementById('pagination-container');
-      const cards = Array.from(paginationContainer.children);
-      let currentStartIndex = 0;
+      const cards = Array.from(paginationContainer.children); // Get all card elements
+      const pageNumbersContainer = document.getElementById('page-numbers');
+
+      let currentStartIndex = 0; // New global variable to track the start index
 
       function showPage(startIndex) {
-        currentStartIndex = startIndex;
+        currentStartIndex = startIndex; // Update global start index
         const endIndex = startIndex + itemsPerPage;
 
         cards.forEach((card, index) => {
-          card.style.display = (index >= startIndex && index < endIndex) ? 'block' : 'none';
+          if (index >= startIndex && index < endIndex) {
+            card.style.display = 'block'; // Show card
+          } else {
+            card.style.display = 'none'; // Hide card
+          }
         });
 
-        displayPageNumbers();
+        displayPageNumbers(); // Call to update button visibility
       }
 
       function displayPageNumbers() {
         const mainSection = document.getElementById('van-hoa-section');
         if (!mainSection) return;
 
+        // Get the new wrapper div for positioning buttons
         const buttonWrapper = mainSection.querySelector('.relative.w-full');
         if (!buttonWrapper) return;
 
-        // Clear existing buttons
-        const existingButtons = buttonWrapper.querySelectorAll('.prev-nav-button, .next-nav-button');
-        existingButtons.forEach(btn => btn.remove());
+        // Remove any existing navigation buttons to prevent duplicates
+        const existingPrevButton = buttonWrapper.querySelector('.prev-nav-button');
+        if (existingPrevButton) existingPrevButton.remove();
+        const existingNextButton = buttonWrapper.querySelector('.next-nav-button');
+        if (existingNextButton) existingNextButton.remove();
 
-        if (cards.length <= itemsPerPage) return;
+        if (cards.length <= itemsPerPage) {
+          return;
+        }
 
         // Previous button
         if (currentStartIndex > 0) {
           const prevButton = document.createElement('button');
-          prevButton.className = 'prev-nav-button w-10 h-10 flex items-center justify-center rounded-full bg-amber-700 dark:bg-amber-900 hover:bg-amber-800 dark:hover:bg-amber-800 transition-colors duration-200 absolute left-0 top-1/2 -translate-y-1/2 z-10';
+          prevButton.classList.add(
+            'prev-nav-button',
+            'w-10', 'h-10',
+            'flex', 'items-center', 'justify-center',
+            'rounded-full',
+            'bg-amber-700', 'dark:bg-amber-900', // Changed to brown
+            'hover:bg-amber-800', 'dark:hover:bg-amber-800', // Changed hover to darker brown
+            'transition-colors', 'duration-200',
+            'absolute', 'left-0', 'top-1/2', '-translate-y-1/2', 'z-10'
+          );
           prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
-          prevButton.addEventListener('click', () => showPage(currentStartIndex - 1));
+          prevButton.addEventListener('click', () => {
+            showPage(currentStartIndex - 1);
+          });
           buttonWrapper.appendChild(prevButton);
         }
 
         // Next button
         if (currentStartIndex + itemsPerPage < cards.length) {
           const nextButton = document.createElement('button');
-          nextButton.className = 'next-nav-button w-10 h-10 flex items-center justify-center rounded-full bg-amber-700 dark:bg-amber-900 hover:bg-amber-800 dark:hover:bg-amber-800 transition-colors duration-200 absolute right-0 top-1/2 -translate-y-1/2 z-10';
+          nextButton.classList.add(
+            'next-nav-button',
+            'w-10', 'h-10',
+            'flex', 'items-center', 'justify-center',
+            'rounded-full',
+            'bg-amber-700', 'dark:bg-amber-900', // Changed to brown
+            'hover:bg-amber-800', 'dark:hover:bg-amber-800', // Changed hover to darker brown
+            'transition-colors', 'duration-200',
+            'absolute', 'right-0', 'top-1/2', '-translate-y-1/2', 'z-10'
+          );
           nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
-          nextButton.addEventListener('click', () => showPage(currentStartIndex + 1));
+          nextButton.addEventListener('click', () => {
+            showPage(currentStartIndex + 1);
+          });
           buttonWrapper.appendChild(nextButton);
         }
       }
 
+      // Initial load
       showPage(currentStartIndex);
-    });
 
+
+    });
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
       });
     });
-
-    // New intro animation with fly-to-corner effect
+  });
     window.onload = () => {
-      // --- SELECT ELEMENTS ---
-      const introContainer = document.querySelector(".intro");
-      const introLogoGroup = document.getElementById("logo-container");
-      const mainContent = document.querySelector("main");
+    // 1️⃣ Video khói tự phát, không cần GSAP
 
-      // --- INITIAL STATES ---
-      gsap.set(mainContent, { opacity: 0 });
-      gsap.set([".logo", "#logo-text", "#logo-subtitle"], { opacity: 0, y: 20 });
+    // 2️⃣ Logo hiện ra mượt mà
+    gsap.to(".logo", {
+      duration: 2,
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      ease: "power2.out",
+      delay: 1.5
+    });
 
-      // --- CREATE TIMELINE ---
-      const tl = gsap.timeline();
+    // 3️⃣ Sau vài giây, intro mờ dần và hiện nội dung
+    gsap.to(".intro", {
+      duration: 2,
+      opacity: 0,
+      delay: 5,
+      onComplete: () => {
+        document.querySelector(".intro").style.display = "none";
+      }
+    });
 
-      // --- ANIMATION SEQUENCE ---
-
-      // 1. Animate the intro logo/text appearing in the center.
-      tl.to([".logo", "#logo-text", "#logo-subtitle"], {
-          delay: 1,       // A brief pause before starting
-          duration: 1.5,
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          ease: "power2.out"
-      })
-      // Add a pause to let the user see the logo
-      .to({}, { duration: 1.5 }) // Empty tween for a delay
-
-      // 2. Animate the intro logo group flying to the top-left corner,
-      //    shrinking, and fading out.
-      .to(introLogoGroup, {
-          duration: 1.5,
-          // Target position (approximate top-left corner)
-          x: "-35vw",
-          y: "-40vh",
-          scale: 0.2,
-          opacity: 0,
-          ease: "power3.inOut"
-      })
-
-      // 3. Simultaneously, fade out the entire intro background
-      //    and fade in the main content.
-      .to(introContainer, {
-          duration: 1.5,
-          opacity: 0,
-          onComplete: () => {
-              introContainer.style.display = "none"; // Hide it completely after animation
-          }
-      }, "<") // The "<" starts this animation at the same time as the previous one
-      .to(mainContent, {
-          duration: 1.5,
-          opacity: 1
-      }, "<"); // Also start this at the same time
+    gsap.to("main", {
+      duration: 2,
+      opacity: 1,
+      delay: 5.5,
+      ease: "power2.out"
+    });
   };
 </script>
- <footer class="bg-gray-100 text-gray-700 py-10 px-6 mt-12">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div>
-        <h3 class="text-xl font-bold text-gray-800 mb-4">ThuocLaoVietNam</h3>
-        <p class="text-sm mb-4">Trao quyền cho lập trình viên thông qua giáo dục và phát triển kỹ năng. Khám phá tương lai công nghệ với chúng tôi.</p>
-        <div class="flex space-x-4">
-          <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"><i class="fab fa-x-twitter"></i></a>
-          <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-300"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-      <div>
-        <h3 class="text-xl font-bold text-gray-800 mb-4">Liên hệ</h3>
-        <p class="text-sm">Toà nhà Đại học Công nghệ Đông Á</p>
-        <p class="text-sm">Hà Nội, Việt Nam</p>
-        <p class="text-sm">Email: <a href="mailto:thuoclaovietnam@gmail.com" class="hover:underline">thuoclaovietnam@gmail.com</a></p>
-        <p class="text-sm">Điện thoại: +84 06086042</p>
-      </div>
-      <div>
-        <h3 class="text-xl font-bold text-gray-800 mb-4">Liên kết nhanh</h3>
-        <ul class="space-y-2">
-          <li><a href="index1.html" class="hover:underline">Trang chủ</a></li>
-          <li><a href="lich_su_chi_tiet.html" class="hover:underline">Lịch sử</a></li>
-          <li><a href="van_hoa.html" class="hover:underline">Văn hóa</a></li>
-          <li><a href="#" class="hover:underline">Đánh giá</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-gray-300 mt-8 pt-8 text-center text-sm text-gray-600">
-      © 2025 thuoclaovietnam. Bản quyền đã được bảo lưu.
-    </div>
-  </footer>
